@@ -1,0 +1,6 @@
+_private/
+scripts/
+test-artifacts/
+*.log
+*.png
+.env*
