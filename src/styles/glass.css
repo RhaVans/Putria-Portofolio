@@ -1,0 +1,65 @@
+:root {
+  --glass-blur: 18px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --glass-blur: 10px;
+  }
+}
+
+.glass {
+  background: linear-gradient(145deg, rgb(27 58 104 / .46), rgb(25 25 57 / .34));
+  border: 1px solid rgb(242 225 153 / .14);
+  box-shadow: inset 0 1px 0 rgb(242 225 153 / .16), 0 24px 60px -24px rgb(8 8 28 / .6);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgb(27 58 104 / .92);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: rgb(27 58 104 / .96);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+.glass-hero {
+  border-radius: var(--radius-hero);
+}
+
+.glass-card {
+  border-radius: var(--radius-card);
+}
+
+.glass-chip {
+  border-radius: var(--radius-chip);
+}
+
+.glass-pill {
+  border-radius: var(--radius-pill);
+}
+
+/* Hover and active states for interactive glass elements */
+@media (hover: hover) and (pointer: fine) {
+  .glass-interactive {
+    transition: border-color var(--duration-micro) var(--ease-out),
+                box-shadow var(--duration-micro) var(--ease-out),
+                transform var(--duration-micro) var(--ease-out);
+  }
+  .glass-interactive:hover {
+    border-color: rgba(242, 225, 153, 0.32);
+    box-shadow: inset 0 1px 0 rgba(242, 225, 153, 0.28), 0 28px 64px -20px rgb(8 8 28 / .75);
+    transform: translateY(-2px);
+  }
+}
+
+.glass-interactive:active {
+  transform: scale(0.98);
+}

@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../content/site.json';
+import strings from '../content/strings.en.json';
+---
+<Base title={`About — ${site.name}`}>
+  <section class="section-shell stub-section">
+    <div class="glass glass-hero stub-card">
+      <span class="stub-badge">ROUTE 02 / ABOUT</span>
+      <h1 class="font-display stub-title">{strings.about.heading}</h1>
+      <p class="stub-desc">{strings.about.bio}</p>
+      <div class="stub-actions">
+        <a href="/work" class="btn-primary">View experience</a>
+        <a href="/" class="btn-secondary">Return home</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .stub-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    display: flex;
+    justify-content: center;
+  }
+  .stub-card {
+    width: 100%;
+    max-width: 720px;
+    padding: clamp(32px, 6vw, 64px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .stub-badge {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--sky-400);
+    background: rgba(111, 184, 230, 0.15);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(111, 184, 230, 0.3);
+  }
+  .stub-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: var(--starlight-200);
+    line-height: 1.1;
+  }
+  .stub-desc {
+    color: var(--text-muted);
+    font-size: 18px;
+    max-width: 580px;
+    text-align: left;
+    line-height: 1.7;
+  }
+  .stub-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 12px;
+  }
+</style>

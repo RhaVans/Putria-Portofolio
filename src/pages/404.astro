@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../content/site.json';
+import strings from '../content/strings.en.json';
+---
+<Base title={`Page Not Found — ${site.name}`}>
+  <section class="section-shell not-found-section">
+    <div class="glass glass-hero not-found-card">
+      <span class="error-code font-display">{strings.notFound.code}</span>
+      <h1 class="font-display not-found-title">{strings.notFound.heading}</h1>
+      <p class="not-found-desc">{strings.notFound.subheading}</p>
+      <a href="/" class="btn-primary not-found-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>{strings.notFound.backHome}</span>
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .not-found-section {
+    padding-top: clamp(40px, 10vh, 100px);
+    padding-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100svh - 180px);
+  }
+
+  .not-found-card {
+    width: 100%;
+    max-width: 600px;
+    padding: clamp(36px, 6vw, 64px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .error-code {
+    font-size: clamp(4rem, 12vw, 8rem);
+    color: var(--moon-400);
+    line-height: 0.9;
+    opacity: 0.9;
+    text-shadow: 0 0 32px rgba(236, 180, 77, 0.4);
+  }
+
+  .not-found-title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--starlight-200);
+  }
+
+  .not-found-desc {
+    color: var(--text-muted);
+    font-size: 17px;
+    max-width: 420px;
+    line-height: 1.5;
+  }
+
+  .not-found-btn {
+    margin-top: 16px;
+  }
+</style>

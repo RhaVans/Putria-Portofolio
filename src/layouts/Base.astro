@@ -1,0 +1,130 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import AmbientBackground from '../components/AmbientBackground.astro';
+import TopNav from '../components/TopNav.astro';
+import TabBar from '../components/TabBar.astro';
+import MobileHeader from '../components/MobileHeader.astro';
+import site from '../content/site.json';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${site.name} — ${site.tagline}`,
+  description = `Portfolio of ${site.name}, ${site.tagline} Based in ${site.location}.`
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://putria.dev');
+const currentPath = Astro.url.pathname;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#191939" />
+  <meta name="color-scheme" content="dark" />
+  
+  <!-- Launch Gate (§10): Noindex until Putria approves -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:image" content="/images/og-image.png" />
+
+  <!-- Preload hero display font only (§5.5) -->
+  <link rel="preload" href="/fonts/bodoni-moda-700-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- Favicon Monogram -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- JSON-LD Minimal Person Schema (§11) -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": site.name,
+    "jobTitle": site.tagline,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kebumen",
+      "addressCountry": "ID"
+    }
+  })} />
+
+  <ClientRouter />
+</head>
+<body>
+  <!-- Skip Link for Accessibility (§9) -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Ambient Depth & Starry Layers (§5.2) -->
+  <AmbientBackground />
+
+  <!-- Persistent Chrome (§6, §7) -->
+  <MobileHeader />
+  <TopNav currentPath={currentPath} />
+
+  <!-- Dynamic Content Shell -->
+  <main id="main-content" class="main-wrapper">
+    <slot />
+  </main>
+
+  <TabBar currentPath={currentPath} />
+
+  <!-- Screen reader route change announcer (§6, §9) -->
+  <div id="route-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <style is:global>
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    .main-wrapper {
+      position: relative;
+      z-index: 10;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 90px; /* Space for mobile tab bar */
+    }
+
+    @media (min-width: 768px) {
+      .main-wrapper {
+        padding-top: 96px; /* Space for top nav */
+        padding-bottom: 40px;
+      }
+    }
+  </style>
+
+  <script>
+    import { initTransitions } from '../scripts/transitions';
+    import { initLenis } from '../scripts/lenis';
+
+    initTransitions();
+    initLenis();
+
+    document.addEventListener('astro:page-load', () => {
+      initLenis();
+    });
+  </script>
+</body>
+</html>

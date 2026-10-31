@@ -1,0 +1,291 @@
+@import './tokens.css';
+@import './glass.css';
+
+/* Metric-matched self-hosted fonts (§5.5) */
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/bodoni-moda-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/bodoni-moda-italic-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/instrument-sans-variable-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Fallbacks to prevent CLS */
+@font-face {
+  font-family: 'Bodoni Fallback';
+  src: local('Georgia');
+  size-adjust: 96%;
+}
+
+@font-face {
+  font-family: 'Instrument Fallback';
+  src: local('Arial');
+  size-adjust: 98%;
+}
+
+/* Base resets & document settings */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--night-900);
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100svh;
+  min-height: 100dvh;
+  background-color: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Skip link (§9) */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 20px;
+  background: var(--night-700);
+  color: var(--starlight-200);
+  border: 1px solid var(--starlight-200);
+  padding: 12px 20px;
+  border-radius: var(--radius-chip);
+  font-weight: 600;
+  z-index: 9999;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 20px;
+  outline: 2px solid var(--starlight-200);
+  outline-offset: 2px;
+}
+
+/* Accessible focus ring (§9) */
+:focus-visible {
+  outline: 2px solid var(--starlight-200);
+  outline-offset: 2px;
+}
+
+/* Buttons and links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* Primary Moon Action Button (§5.1, §6) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 26px;
+  border-radius: var(--radius-pill);
+  background-color: var(--moon-400);
+  color: var(--night-900);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--duration-micro) var(--ease-out),
+              box-shadow var(--duration-micro) var(--ease-out);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -6px rgba(236, 180, 77, 0.45);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* Sheen sweep on hover (§6) */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  transition: transform 0.6s var(--ease-out);
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  transform: translateX(350%) skewX(-20deg);
+}
+
+/* Secondary Button (Glass) */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  background: rgba(27, 58, 104, 0.45);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color var(--duration-micro) var(--ease-out),
+              background-color var(--duration-micro) var(--ease-out),
+              transform var(--duration-micro) var(--ease-out);
+}
+
+.btn-secondary:hover {
+  border-color: rgba(242, 225, 153, 0.35);
+  background: rgba(27, 58, 104, 0.65);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+/* Typography Helpers */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Section Containers */
+.section-shell {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter-mobile);
+  padding-right: var(--gutter-mobile);
+}
+
+@media (min-width: 768px) {
+  .section-shell {
+    padding-left: var(--gutter-desktop);
+    padding-right: var(--gutter-desktop);
+  }
+}
+
+/* Direction-Aware Page Transitions (§6) */
+@keyframes fade-out-left {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-8px); }
+}
+
+@keyframes fade-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fade-out-right {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(8px); }
+}
+
+@keyframes fade-in-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes simple-crossfade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes simple-crossfade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Forward route transitions */
+html[data-nav-dir="forward"]::view-transition-old(root) {
+  animation: 220ms var(--ease-in-out) both fade-out-left;
+}
+html[data-nav-dir="forward"]::view-transition-new(root) {
+  animation: 520ms var(--ease-out) both fade-in-right;
+}
+
+/* Backward route transitions */
+html[data-nav-dir="backward"]::view-transition-old(root) {
+  animation: 220ms var(--ease-in-out) both fade-out-right;
+}
+html[data-nav-dir="backward"]::view-transition-new(root) {
+  animation: 520ms var(--ease-out) both fade-in-left;
+}
+
+/* Default / fallback route transition */
+html:not([data-nav-dir])::view-transition-old(root) {
+  animation: 220ms ease-out both simple-crossfade-out;
+}
+html:not([data-nav-dir])::view-transition-new(root) {
+  animation: 450ms ease-out both simple-crossfade-in;
+}
+
+/* Reduced motion preference override (§6) */
+@media (prefers-reduced-motion: reduce) {
+  html::view-transition-old(root),
+  html[data-nav-dir="forward"]::view-transition-old(root),
+  html[data-nav-dir="backward"]::view-transition-old(root) {
+    animation: 150ms ease both simple-crossfade-out !important;
+  }
+  html::view-transition-new(root),
+  html[data-nav-dir="forward"]::view-transition-new(root),
+  html[data-nav-dir="backward"]::view-transition-new(root) {
+    animation: 150ms ease both simple-crossfade-in !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

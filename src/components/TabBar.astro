@@ -1,0 +1,140 @@
+---
+import strings from '../content/strings.en.json';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const cleanPath = currentPath.replace(/\/$/, '') || '/';
+
+const tabs = [
+  { href: '/', label: strings.nav.home, icon: 'home' },
+  { href: '/about', label: strings.nav.about, icon: 'user' },
+  { href: '/work', label: strings.nav.work, icon: 'briefcase' },
+  { href: '/contact', label: strings.nav.contact, icon: 'mail' }
+];
+---
+<nav class="mobile-tabbar" transition:persist="mobile-tabbar" aria-label="Mobile navigation">
+  <div class="glass glass-pill tabbar-inner">
+    {tabs.map((tab) => {
+      const isActive = tab.href === '/'
+        ? cleanPath === '/'
+        : cleanPath.startsWith(tab.href);
+      return (
+        <a
+          href={tab.href}
+          class={`tab-item ${isActive ? 'active' : ''}`}
+          aria-current={isActive ? 'page' : undefined}
+        >
+          {isActive && (
+            <span class="active-pill" transition:name="active-mobile-pill" />
+          )}
+          <span class="tab-icon" aria-hidden="true">
+            {tab.icon === 'home' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+            )}
+            {tab.icon === 'user' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            )}
+            {tab.icon === 'briefcase' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            )}
+            {tab.icon === 'mail' && (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            )}
+          </span>
+          <span class="tab-label">{tab.label}</span>
+        </a>
+      );
+    })}
+  </div>
+</nav>
+
+<style>
+  .mobile-tabbar {
+    display: block;
+    position: fixed;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    left: 16px;
+    right: 16px;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .mobile-tabbar {
+      display: none;
+    }
+  }
+
+  .tabbar-inner {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 64px;
+    padding: 4px 6px;
+    max-width: 420px;
+    margin: 0 auto;
+    box-shadow: 0 16px 40px -10px rgba(8, 8, 28, 0.8), inset 0 1px 0 rgba(242, 225, 153, 0.22);
+  }
+
+  .tab-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 48px; /* >= 48px tap target (§7) */
+    min-width: 48px;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color var(--duration-micro) var(--ease-out);
+    z-index: 1;
+  }
+
+  .tab-item.active {
+    color: var(--night-900);
+  }
+
+  .active-pill {
+    position: absolute;
+    inset: 4px 6px;
+    background-color: var(--moon-400);
+    border-radius: var(--radius-pill);
+    z-index: -1;
+    box-shadow: 0 4px 14px -2px rgba(236, 180, 77, 0.5);
+  }
+
+  .tab-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 22px;
+  }
+
+  .tab-label {
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+  }
+
+  .tab-item:not(.active) .tab-label {
+    color: var(--text-muted);
+  }
+</style>
