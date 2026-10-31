@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-10-31T06:40:30.110Z",
+  "metrics": {
+    "fcpMs": 2032,
+    "lcpMs": 2032,
+    "cls": 0,
+    "domContentLoadedMs": 1808,
+    "loadTimeMs": 1816,
+    "scriptDurationMs": 38,
+    "layoutDurationMs": 1353
+  },
+  "budgets": {
+    "lcpTarget": "<= 2.5s (2500ms)",
+    "clsTarget": "<= 0.05",
+    "tbtTarget": "<= 150ms"
+  },
+  "status": {
+    "lcpPass": true,
+    "clsPass": true,
+    "fcpPass": false
+  }
+}
