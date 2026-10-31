@@ -1,84 +1,327 @@
 ---
 import Base from '../layouts/Base.astro';
+import Footer from '../components/Footer.astro';
 import site from '../content/site.json';
 import strings from '../content/strings.en.json';
 ---
-<Base title={`Contact — ${site.name}`}>
-  <section class="section-shell stub-section">
-    <div class="glass glass-hero stub-card">
-      <span class="stub-badge">ROUTE 04 / CONTACT</span>
-      <h1 class="font-display stub-title">{strings.contact.heading}</h1>
-      <p class="stub-desc">{strings.contact.subheading}</p>
-      <div class="contact-box glass glass-card">
-        <span class="email-val">{site.email}</span>
-        <span class="loc-val">{site.location}</span>
-      </div>
-      <div class="stub-actions">
-        <a href={`mailto:${site.email}`} class="btn-primary">Email Putria</a>
-        <a href="/" class="btn-secondary">Return home</a>
+<Base
+  title={`Contact — ${site.name}`}
+  description={`Get in touch with ${site.name} for student leadership, editorial collaborations, or academic inquiries.`}
+>
+  <div class="contact-page section-shell">
+    <header class="contact-header">
+      <span class="section-eyebrow">{strings.contact.eyebrow}</span>
+      <h1 class="contact-title font-display">{strings.contact.heading}</h1>
+      <p class="contact-subheading">{strings.contact.subheading}</p>
+    </header>
+
+    <div class="contact-content-grid">
+      <!-- Primary Contact Card -->
+      <section class="glass glass-card contact-main-card" aria-labelledby="direct-email-heading">
+        <div class="card-ambient-glow" aria-hidden="true"></div>
+
+        <h2 id="direct-email-heading" class="card-title font-display">Direct correspondence</h2>
+        <p class="card-text">
+          Direct email is the fastest and most reliable way to connect for academic projects, leadership initiatives, or editorial reviews.
+        </p>
+
+        <div class="email-display-box glass glass-card">
+          <span class="email-caption">{strings.contact.emailLabel}</span>
+          <a href={`mailto:${site.email}`} class="email-address-link font-display">
+            {site.email}
+          </a>
+        </div>
+
+        <div class="contact-btn-row">
+          <a href={`mailto:${site.email}`} class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>Email Putria</span>
+          </a>
+
+          <button type="button" class="btn-secondary page-copy-btn" data-email={site.email}>
+            <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="page-copy-label">Copy email</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Side Information Card -->
+      <div class="contact-side-column">
+        <!-- Location Card (§3, §10) -->
+        <section class="glass glass-card side-info-card" aria-labelledby="loc-heading">
+          <div class="side-icon-box" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div>
+            <h2 id="loc-heading" class="side-title font-display">Location</h2>
+            <p class="side-value">{site.location}</p>
+            <p class="side-sub">Central Java, Indonesia (WIB / UTC+7)</p>
+          </div>
+        </section>
+
+        <!-- CV Download Card (§10) -->
+        <section class="glass glass-card side-info-card" aria-labelledby="cv-heading">
+          <div class="side-icon-box" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </div>
+          <div>
+            <h2 id="cv-heading" class="side-title font-display">Verified curriculum vitae</h2>
+            <p class="side-sub">One-page factual summary of experience, education, and language proficiencies.</p>
+            <a href="/cv.pdf" download="Putria_Octavianty_CV.pdf" class="btn-secondary cv-download-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download PDF</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Privacy & Protection Note (§10) -->
+        <div class="glass glass-chip privacy-note-card">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>{strings.contact.privacyNotice}</span>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+
+  <Footer />
 </Base>
 
 <style>
-  .stub-section {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    display: flex;
-    justify-content: center;
+  .contact-page {
+    padding-top: 32px;
+    padding-bottom: 60px;
   }
-  .stub-card {
-    width: 100%;
-    max-width: 720px;
-    padding: clamp(32px, 6vw, 64px);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+
+  @media (min-width: 768px) {
+    .contact-page {
+      padding-top: 48px;
+      padding-bottom: 80px;
+    }
   }
-  .stub-badge {
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: var(--moon-400);
-    background: rgba(236, 180, 77, 0.15);
-    padding: 4px 12px;
-    border-radius: var(--radius-pill);
-    border: 1px solid rgba(236, 180, 77, 0.3);
+
+  .contact-header {
+    margin-bottom: 36px;
+    max-width: 680px;
   }
-  .stub-title {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+
+  .section-eyebrow {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--sky-400);
+    margin-bottom: 6px;
+  }
+
+  .contact-title {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
     color: var(--starlight-200);
     line-height: 1.1;
+    margin-bottom: 12px;
   }
-  .stub-desc {
+
+  .contact-subheading {
+    font-size: 17px;
     color: var(--text-muted);
-    font-size: 18px;
-    max-width: 480px;
+    line-height: 1.6;
   }
-  .contact-box {
+
+  .contact-content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 1024px) {
+    .contact-content-grid {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 32px;
+    }
+  }
+
+  .contact-main-card {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(28px, 5vw, 44px);
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 20px 32px;
-    background: rgba(27, 58, 104, 0.5);
-    margin-top: 8px;
+    gap: 20px;
   }
-  .email-val {
-    font-size: 18px;
-    font-weight: 600;
+
+  .card-ambient-glow {
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(236, 180, 77, 0.18) 0%, rgba(111, 184, 230, 0.1) 45%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .card-title {
+    font-size: 1.6rem;
     color: var(--starlight-200);
   }
-  .loc-val {
-    font-size: 14px;
-    color: var(--sky-400);
+
+  .card-text {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.6;
   }
-  .stub-actions {
+
+  .email-display-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px 24px;
+    background: rgba(27, 58, 104, 0.45);
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  .email-caption {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sky-400);
+    font-weight: 600;
+  }
+
+  .email-address-link {
+    font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+    font-weight: 700;
+    color: var(--moon-400);
+    word-break: break-all;
+    text-decoration: none;
+    transition: color var(--duration-micro) var(--ease-out);
+  }
+
+  .email-address-link:hover {
+    color: var(--starlight-200);
+  }
+
+  .contact-btn-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .contact-side-column {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .side-info-card {
+    padding: 22px 24px;
     display: flex;
     gap: 16px;
-    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .side-icon-box {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-chip);
+    background: rgba(27, 58, 104, 0.6);
+    border: 1px solid var(--border-glass);
+    color: var(--moon-400);
+    flex-shrink: 0;
+  }
+
+  .side-title {
+    font-size: 1.15rem;
+    color: var(--starlight-200);
+    margin-bottom: 4px;
+  }
+
+  .side-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .side-sub {
+    font-size: 13px;
+    color: var(--text-subtle);
+    margin-top: 2px;
+  }
+
+  .cv-download-btn {
+    min-height: 38px;
+    padding: 6px 16px;
+    font-size: 13.5px;
     margin-top: 12px;
   }
+
+  .privacy-note-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    background: rgba(25, 25, 57, 0.6);
+    font-size: 12.5px;
+    color: var(--text-subtle);
+    line-height: 1.5;
+  }
+
+  .privacy-note-card svg {
+    color: var(--sky-400);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
 </style>
+
+<script>
+  function setupPageCopyButton() {
+    const copyBtns = document.querySelectorAll('.page-copy-btn');
+    copyBtns.forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const email = btn.getAttribute('data-email');
+        const label = btn.querySelector('.page-copy-label');
+        if (!email || !label) return;
+
+        try {
+          await navigator.clipboard.writeText(email);
+          const original = label.textContent;
+          label.textContent = 'Copied to clipboard!';
+          setTimeout(() => {
+            label.textContent = original;
+          }, 2400);
+        } catch (err) {
+          label.textContent = email;
+        }
+      });
+    });
+  }
+
+  setupPageCopyButton();
+  document.addEventListener('astro:page-load', setupPageCopyButton);
+</script>

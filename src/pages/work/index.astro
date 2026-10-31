@@ -1,95 +1,90 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Footer from '../../components/Footer.astro';
+import WorkCard from '../../components/WorkCard.astro';
 import site from '../../content/site.json';
 import strings from '../../content/strings.en.json';
 import experience from '../../content/experience.json';
 ---
-<Base title={`Work & Experience — ${site.name}`}>
-  <section class="section-shell stub-section">
-    <div class="glass glass-hero stub-card">
-      <span class="stub-badge">ROUTE 03 / WORK</span>
-      <h1 class="font-display stub-title">{strings.work.heading}</h1>
-      <p class="stub-desc">{strings.work.subheading}</p>
-      <div class="roles-preview">
-        {experience.map((exp) => (
-          <div class="glass glass-chip role-preview-chip">
-            <strong class="role-title">{exp.role}</strong>
-            <span class="role-org">{exp.organization}</span>
-          </div>
-        ))}
-      </div>
-      <div class="stub-actions">
-        <a href="/contact" class="btn-primary">Get in touch</a>
-        <a href="/about" class="btn-secondary">About Putria</a>
-      </div>
+<Base
+  title={`Work & Initiatives — ${site.name}`}
+  description={`Documented leadership, editorial, and organizational projects led by ${site.name}.`}
+>
+  <div class="work-page section-shell">
+    <header class="work-header">
+      <span class="section-eyebrow">{strings.work.eyebrow}</span>
+      <h1 class="work-title font-display">{strings.work.heading}</h1>
+      <p class="work-subheading">{strings.work.subheading}</p>
+    </header>
+
+    <div class="work-grid">
+      {experience.map((exp) => (
+        <div class="work-grid-item">
+          <WorkCard experience={exp} />
+        </div>
+      ))}
     </div>
-  </section>
+  </div>
+
+  <Footer />
 </Base>
 
 <style>
-  .stub-section {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    display: flex;
-    justify-content: center;
+  .work-page {
+    padding-top: 32px;
+    padding-bottom: 60px;
   }
-  .stub-card {
-    width: 100%;
-    max-width: 760px;
-    padding: clamp(32px, 6vw, 64px);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+
+  @media (min-width: 768px) {
+    .work-page {
+      padding-top: 48px;
+      padding-bottom: 80px;
+    }
   }
-  .stub-badge {
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: var(--starlight-200);
-    background: rgba(242, 225, 153, 0.12);
-    padding: 4px 12px;
-    border-radius: var(--radius-pill);
-    border: 1px solid rgba(242, 225, 153, 0.25);
+
+  .work-header {
+    margin-bottom: 36px;
+    max-width: 680px;
   }
-  .stub-title {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+
+  .section-eyebrow {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--sky-400);
+    margin-bottom: 6px;
+  }
+
+  .work-title {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
     color: var(--starlight-200);
     line-height: 1.1;
+    margin-bottom: 12px;
   }
-  .stub-desc {
+
+  .work-subheading {
+    font-size: 17px;
     color: var(--text-muted);
-    font-size: 18px;
-    max-width: 580px;
+    line-height: 1.6;
   }
-  .roles-preview {
+
+  .work-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 12px;
-    width: 100%;
-    margin-top: 12px;
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
-  .role-preview-chip {
-    padding: 14px 18px;
+
+  @media (min-width: 768px) {
+    .work-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+
+  .work-grid-item {
     display: flex;
-    flex-direction: column;
-    text-align: left;
-    gap: 4px;
-    background: rgba(27, 58, 104, 0.4);
-  }
-  .role-title {
-    color: var(--starlight-200);
-    font-size: 15px;
-  }
-  .role-org {
-    color: var(--text-subtle);
-    font-size: 13px;
-  }
-  .stub-actions {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px;
+    height: 100%;
   }
 </style>

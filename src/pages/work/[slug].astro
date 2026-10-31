@@ -1,0 +1,363 @@
+---
+import Base from '../../layouts/Base.astro';
+import Footer from '../../components/Footer.astro';
+import AbstractCover from '../../components/AbstractCover.astro';
+import site from '../../content/site.json';
+import strings from '../../content/strings.en.json';
+import experience from '../../content/experience.json';
+
+export function getStaticPaths() {
+  return experience.map((exp) => ({
+    params: { slug: exp.slug },
+    props: { experience: exp }
+  }));
+}
+
+interface Props {
+  experience: (typeof experience)[0];
+}
+
+const { experience: exp } = Astro.props;
+---
+<Base
+  title={`${exp.role} — ${exp.organization}`}
+  description={`${exp.role} at ${exp.organization} (${exp.period}). ${exp.tagline}`}
+>
+  <div class="detail-page section-shell">
+    <!-- Back breadcrumb -->
+    <nav class="back-nav" aria-label="Breadcrumb">
+      <a href="/work" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>{strings.work.backToWork}</span>
+      </a>
+    </nav>
+
+    <!-- Main Detail Glass Sheet -->
+    <article class="glass glass-hero detail-sheet">
+      <!-- Morphing Cover Banner (§6) -->
+      <div class="detail-banner" transition:name={`work-cover-${exp.slug}`}>
+        <AbstractCover theme={exp.abstractTheme} title={exp.role} />
+        <div class="banner-overlay">
+          <span class="org-type-pill">{exp.orgType}</span>
+          <span class="period-pill">{exp.period}</span>
+        </div>
+      </div>
+
+      <div class="detail-body">
+        <!-- Title and Org Header -->
+        <header class="detail-header">
+          <h1 class="detail-title font-display" transition:name={`work-title-${exp.slug}`}>
+            {exp.role}
+          </h1>
+          <p class="detail-org-name font-display">{exp.organization}</p>
+          <p class="detail-tagline">{exp.tagline}</p>
+        </header>
+
+        <!-- Meta Specification Bar -->
+        <div class="detail-meta-grid">
+          <div class="meta-cell">
+            <span class="meta-label">{strings.work.roleLabel}</span>
+            <span class="meta-value">{exp.role}</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-label">{strings.work.orgLabel}</span>
+            <span class="meta-value">{exp.organization}</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-label">{strings.work.periodLabel}</span>
+            <span class="meta-value">{exp.period}</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-label">Location</span>
+            <span class="meta-value">Kebumen, Indonesia</span>
+          </div>
+        </div>
+
+        <!-- Verified Responsibilities / What she did (§3) -->
+        <section class="detail-section" aria-labelledby="resp-heading">
+          <h2 id="resp-heading" class="section-title font-display">{strings.work.responsibilitiesLabel}</h2>
+          <ul class="responsibilities-list">
+            {exp.bullets.map((bullet) => (
+              <li class="bullet-item">
+                <span class="bullet-dot" aria-hidden="true"></span>
+                <span class="bullet-text">{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- Skills applied (§3) -->
+        <section class="detail-section" aria-labelledby="skills-applied-heading">
+          <h2 id="skills-applied-heading" class="section-title font-display">{strings.work.skillsShownLabel}</h2>
+          <div class="skills-row">
+            {exp.skills.map((skill) => (
+              <span class="skill-pill">{skill}</span>
+            ))}
+          </div>
+        </section>
+
+        <!-- Verification Notice -->
+        <div class="detail-verification-box">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          <span>Verified factual record from official student leadership and curriculum archives.</span>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="detail-actions">
+          <a href="/work" class="btn-secondary">
+            <span>&larr; Back to all work</span>
+          </a>
+          <a href={`mailto:${site.email}?subject=Inquiry regarding ${encodeURIComponent(exp.role)}`} class="btn-primary">
+            <span>Inquire about this project</span>
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <Footer />
+</Base>
+
+<style>
+  .detail-page {
+    padding-top: 24px;
+    padding-bottom: 60px;
+  }
+
+  @media (min-width: 768px) {
+    .detail-page {
+      padding-top: 40px;
+      padding-bottom: 80px;
+    }
+  }
+
+  .back-nav {
+    margin-bottom: 20px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--sky-400);
+    transition: color var(--duration-micro) var(--ease-out);
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--starlight-200);
+  }
+
+  .detail-sheet {
+    max-width: 860px;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(242, 225, 153, 0.2), 0 24px 64px -20px rgba(8, 8, 28, 0.85);
+  }
+
+  .detail-banner {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    background: var(--night-700);
+  }
+
+  @media (min-width: 768px) {
+    .detail-banner {
+      height: 300px;
+    }
+  }
+
+  .banner-overlay {
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .org-type-pill {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    background: rgba(25, 25, 57, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-glass);
+    color: var(--sky-400);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+  }
+
+  .period-pill {
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(25, 25, 57, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-glass);
+    color: var(--starlight-200);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+  }
+
+  .detail-body {
+    padding: clamp(24px, 5vw, 44px);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .detail-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .detail-title {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    color: var(--starlight-200);
+    line-height: 1.15;
+  }
+
+  .detail-org-name {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    color: var(--moon-400);
+    font-weight: 600;
+  }
+
+  .detail-tagline {
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 6px;
+  }
+
+  .detail-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 20px;
+    border-radius: var(--radius-card);
+    background: rgba(27, 58, 104, 0.35);
+    border: 1px solid var(--border-glass);
+  }
+
+  @media (min-width: 640px) {
+    .detail-meta-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .meta-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--sky-400);
+  }
+
+  .meta-value {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .detail-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+    color: var(--starlight-200);
+  }
+
+  .responsibilities-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bullet-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .bullet-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--moon-400);
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  .bullet-text {
+    font-size: 16.5px;
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+
+  .skills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skill-pill {
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    background: rgba(27, 58, 104, 0.55);
+    border: 1px solid rgba(242, 225, 153, 0.15);
+    color: var(--starlight-200);
+  }
+
+  .detail-verification-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-subtle);
+    background: rgba(27, 58, 104, 0.25);
+    padding: 12px 18px;
+    border-radius: var(--radius-chip);
+    border: 1px solid var(--border-glass);
+  }
+
+  .detail-verification-box svg {
+    color: var(--moon-400);
+    flex-shrink: 0;
+  }
+
+  .detail-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(242, 225, 153, 0.1);
+  }
+</style>
