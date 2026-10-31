@@ -34,4 +34,5 @@
   --container-max: 1280px;
   --gutter-desktop: 32px;
   --gutter-mobile: 18px;
+  --mobile-header-height: 64px;
 }

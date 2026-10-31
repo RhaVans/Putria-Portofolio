@@ -14,6 +14,9 @@ function getRouteIndex(pathname: string): number {
 }
 
 export function initTransitions() {
+  if ((window as any).__transitionsInitialized) return;
+  (window as any).__transitionsInitialized = true;
+
   document.addEventListener('astro:before-preparation', (event: any) => {
     const fromIndex = getRouteIndex(window.location.pathname);
     const toIndex = getRouteIndex(new URL(event.to).pathname);

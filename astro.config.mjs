@@ -6,6 +6,9 @@ export default defineConfig({
   build: {
     format: 'directory'
   },
+  devToolbar: {
+    enabled: false
+  },
   compressHTML: true,
   site: 'https://putria.dev'
 });

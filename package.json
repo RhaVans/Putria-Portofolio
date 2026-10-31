@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "astro dev --host",
+    "start": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro preview --host"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +32,7 @@
   },
   "devDependencies": {
     "axe-core": "^4.14.0",
-    "lighthouse": "^13.6.0"
+    "lighthouse": "^13.6.0",
+    "vercel": "^65.8.0"
   }
 }

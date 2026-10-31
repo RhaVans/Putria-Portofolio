@@ -22,7 +22,7 @@ import strings from '../content/strings.en.json';
 
 <style>
   .not-found-section {
-    padding-top: clamp(40px, 10vh, 100px);
+    padding-top: max(calc(var(--mobile-header-height, 64px) + 20px), clamp(60px, 10vh, 100px));
     padding-bottom: 60px;
     display: flex;
     justify-content: center;

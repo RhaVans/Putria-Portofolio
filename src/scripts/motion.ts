@@ -15,6 +15,9 @@ function initCardTilt() {
   const cards = document.querySelectorAll<HTMLElement>('[data-card-tilt]');
 
   cards.forEach((card) => {
+    if (card.dataset.tiltBound === 'true') return;
+    card.dataset.tiltBound = 'true';
+
     let bounds: DOMRect | null = null;
     let isHovered = false;
 
@@ -50,7 +53,7 @@ function initCardTilt() {
 function initScrollReveals(prefersReduced: boolean) {
   if (prefersReduced) return;
 
-  const revealGroups = document.querySelectorAll('.capabilities-grid, .process-flow, .statbar-container');
+  const revealGroups = document.querySelectorAll<HTMLElement>('.capabilities-grid, .process-flow, .statbar-container');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -65,6 +68,8 @@ function initScrollReveals(prefersReduced: boolean) {
   });
 
   revealGroups.forEach((el) => {
+    if (el.dataset.revealBound === 'true') return;
+    el.dataset.revealBound = 'true';
     el.classList.add('reveal-group');
     observer.observe(el);
   });

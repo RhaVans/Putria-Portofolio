@@ -126,7 +126,7 @@ const { experience: exp } = Astro.props;
 
 <style>
   .detail-page {
-    padding-top: 24px;
+    padding-top: calc(var(--mobile-header-height, 64px) + 16px);
     padding-bottom: 60px;
   }
 
@@ -138,7 +138,7 @@ const { experience: exp } = Astro.props;
   }
 
   .back-nav {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
   .back-link {
@@ -148,6 +148,8 @@ const { experience: exp } = Astro.props;
     font-size: 14px;
     font-weight: 500;
     color: var(--sky-400);
+    min-height: 44px;
+    padding: 4px 0;
     transition: color var(--duration-micro) var(--ease-out);
     text-decoration: none;
   }

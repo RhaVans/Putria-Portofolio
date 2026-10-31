@@ -15,7 +15,7 @@ const tabs = [
   { href: '/contact', label: strings.nav.contact, icon: 'mail' }
 ];
 ---
-<nav class="mobile-tabbar" transition:persist="mobile-tabbar" aria-label="Mobile navigation">
+<nav class="mobile-tabbar" transition:name="mobile-tabbar" aria-label="Mobile navigation">
   <div class="glass glass-pill tabbar-inner">
     {tabs.map((tab) => {
       const isActive = tab.href === '/'

@@ -134,25 +134,31 @@ import strings from '../content/strings.en.json';
 </style>
 
 <script>
+  import { copyToClipboard } from '../scripts/clipboard';
+
   function setupCopyButton() {
-    const copyBtns = document.querySelectorAll('.copy-email-btn');
+    const copyBtns = document.querySelectorAll<HTMLButtonElement>('.copy-email-btn');
     copyBtns.forEach((btn) => {
+      if (btn.dataset.copyBound === 'true') return;
+      btn.dataset.copyBound = 'true';
+
       btn.addEventListener('click', async () => {
         const email = btn.getAttribute('data-email');
-        const label = btn.querySelector('.copy-label');
+        const label = btn.querySelector<HTMLElement>('.copy-label');
         if (!email || !label) return;
 
-        try {
-          await navigator.clipboard.writeText(email);
-          const original = label.textContent;
+        const success = await copyToClipboard(email);
+        const original = label.textContent || 'Copy email';
+
+        if (success) {
           label.textContent = 'Copied to clipboard!';
-          setTimeout(() => {
-            label.textContent = original;
-          }, 2400);
-        } catch (err) {
-          // Fallback
+        } else {
           label.textContent = email;
         }
+
+        setTimeout(() => {
+          label.textContent = original;
+        }, 2400);
       });
     });
   }
