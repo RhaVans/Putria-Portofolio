@@ -1,0 +1,50 @@
+{
+  "capabilities": [
+    {
+      "title": "Event coordination",
+      "description": "Plans program schedules, aligns committees, and oversees operational execution from start to finish."
+    },
+    {
+      "title": "Risk planning",
+      "description": "Identifies logistical uncertainties early and prepares structured mitigation strategies."
+    },
+    {
+      "title": "Editorial work and layout",
+      "description": "Drafts clear instructional materials, structures content logically, and refines page visual layout."
+    },
+    {
+      "title": "Financial administration",
+      "description": "Manages organizational funds, tracks operational expenses, and produces transparent financial reports."
+    },
+    {
+      "title": "Project leadership",
+      "description": "Develops project proposals, guides product research initiatives, and coordinates team workflows."
+    },
+    {
+      "title": "Public speaking",
+      "description": "Communicates ideas with clarity, presents proposals, and engages audiences in academic and student forums."
+    }
+  ],
+  "process": [
+    {
+      "step": "01",
+      "title": "Plan the schedule",
+      "description": "Establish clear milestone timelines, program pacing, and deliverable targets before kickoff."
+    },
+    {
+      "step": "02",
+      "title": "Coordinate the committees",
+      "description": "Align multidisciplinary teams and maintain transparent communication across organizing groups."
+    },
+    {
+      "step": "03",
+      "title": "Anticipate risks",
+      "description": "Identify potential operational bottlenecks in advance and define contingency responses."
+    },
+    {
+      "step": "04",
+      "title": "Supervise the run",
+      "description": "Provide steady on-site oversight throughout preparation and live implementation to ensure smooth delivery."
+    }
+  ]
+}

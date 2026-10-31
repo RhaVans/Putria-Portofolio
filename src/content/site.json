@@ -1,0 +1,48 @@
+{
+  "name": "Putria Octavianty",
+  "shortName": "Putria",
+  "initials": "PO",
+  "tagline": "Event coordinator, editor and student leader.",
+  "location": "Kebumen, Indonesia",
+  "email": "pramestiputria03@gmail.com",
+  "education": {
+    "institution": "SMA Muhammadiyah Gombong",
+    "track": "Natural Sciences & Mathematics",
+    "cohort": "Class of 2026",
+    "eqfLevel": "EQF Level 4",
+    "period": "2023 – 2026"
+  },
+  "skills": [
+    "Public speaking",
+    "Editing",
+    "Event coordination",
+    "Risk planning",
+    "Editorial work and layout",
+    "Financial administration",
+    "Project leadership"
+  ],
+  "languages": [
+    {
+      "name": "Javanese",
+      "proficiency": "Mother tongue",
+      "badge": "Native"
+    },
+    {
+      "name": "English",
+      "proficiency": "Independent User",
+      "badge": "CEFR B1/B2",
+      "details": {
+        "listening": "B1",
+        "reading": "B2",
+        "speaking": "B1",
+        "writing": "B1"
+      }
+    }
+  ],
+  "stats": [
+    { "value": "4", "label": "Roles held" },
+    { "value": "2", "label": "Organizations" },
+    { "value": "1", "label": "Product led" },
+    { "value": "2", "label": "Languages" }
+  ]
+}

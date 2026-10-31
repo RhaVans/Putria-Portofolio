@@ -1,0 +1,90 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "work": "Work",
+    "contact": "Contact",
+    "sayHello": "Say hello",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu"
+  },
+  "hero": {
+    "greeting": "Hello, I am",
+    "name": "Putria Octavianty",
+    "role": "Event coordinator, editor and student leader.",
+    "viewWork": "View work",
+    "downloadCv": "Download CV",
+    "emailMe": "Email Putria",
+    "altPortrait": "Portrait of Putria Octavianty"
+  },
+  "stats": {
+    "title": "Verifiable background"
+  },
+  "featured": {
+    "eyebrow": "Selected initiatives",
+    "heading": "Featured experience",
+    "seeAll": "View all work",
+    "viewDetails": "View project details"
+  },
+  "capabilities": {
+    "eyebrow": "Core strengths",
+    "heading": "What I bring to a team",
+    "subheading": "Practical competencies proven across student leadership, publication editing, and project management."
+  },
+  "process": {
+    "eyebrow": "Methodology",
+    "heading": "How I coordinate work",
+    "subheading": "A structured four-phase workflow refined through hands-on event leadership and risk mitigation."
+  },
+  "cta": {
+    "eyebrow": "Get in touch",
+    "heading": "Want to work together?",
+    "subheading": "Open to student initiatives, editorial collaborations, and leadership projects. Feel free to reach out directly.",
+    "emailPutria": "Email Putria",
+    "copyEmail": "Copy email",
+    "copied": "Copied to clipboard",
+    "locationNote": "Based in Kebumen, Central Java, Indonesia"
+  },
+  "about": {
+    "eyebrow": "Background & Focus",
+    "heading": "About Putria",
+    "bio": "I am a student at SMA Muhammadiyah Gombong (Class of 2026) focusing on natural sciences and mathematics. Through roles as General Treasurer in student leadership, project leader in organic waste recycling, and editor for junior high school science materials, I have built practical experience in financial oversight, risk planning, and event coordination. Based in Kebumen, I communicate in Javanese and English and enjoy bringing order, precision, and care to team initiatives.",
+    "bioNotice": "Draft biographical statement prepared from verified CV records.",
+    "educationHeading": "Education",
+    "languagesHeading": "Languages",
+    "skillsHeading": "Core skills",
+    "leadershipHeading": "Student leadership & service"
+  },
+  "work": {
+    "eyebrow": "Portfolio & Timeline",
+    "heading": "Experience & leadership",
+    "subheading": "Four documented roles spanning organizational treasury, eco-product development, curriculum editing, and event coordination.",
+    "backToWork": "Back to work",
+    "periodLabel": "Timeframe",
+    "orgLabel": "Organization",
+    "roleLabel": "Position",
+    "skillsShownLabel": "Skills applied",
+    "responsibilitiesLabel": "Key responsibilities"
+  },
+  "contact": {
+    "eyebrow": "Connect",
+    "heading": "Let's connect",
+    "subheading": "For collaborative projects, student organizations, or editorial inquiries, write directly via email.",
+    "emailLabel": "Email address",
+    "locationLabel": "Location",
+    "downloadCvPrompt": "Download verified CV summary",
+    "privacyNotice": "This website publishes only verified public experience details. Direct contact information is limited to official email correspondence."
+  },
+  "notFound": {
+    "code": "404",
+    "heading": "Page not found",
+    "subheading": "The page you are looking for does not exist in this starry night sky.",
+    "backHome": "Return to Home"
+  },
+  "footer": {
+    "monogram": "PO",
+    "name": "Putria Octavianty",
+    "copyright": "All rights reserved.",
+    "builtWith": "Designed with Starry Night glassmorphism. Accessible, responsive, and performance-first."
+  }
+}
