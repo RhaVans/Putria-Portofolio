@@ -270,8 +270,25 @@ html:not([data-nav-dir])::view-transition-new(root) {
   animation: 450ms ease-out both simple-crossfade-in;
 }
 
+/* Group-level scroll reveals (§6) */
+.reveal-group {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.reveal-group.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Reduced motion preference override (§6) */
 @media (prefers-reduced-motion: reduce) {
+  .reveal-group {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
   html::view-transition-old(root),
   html[data-nav-dir="forward"]::view-transition-old(root),
   html[data-nav-dir="backward"]::view-transition-old(root) {

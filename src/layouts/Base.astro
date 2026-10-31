@@ -118,12 +118,15 @@ const currentPath = Astro.url.pathname;
   <script>
     import { initTransitions } from '../scripts/transitions';
     import { initLenis } from '../scripts/lenis';
+    import { initMotion } from '../scripts/motion';
 
     initTransitions();
     initLenis();
+    initMotion();
 
     document.addEventListener('astro:page-load', () => {
       initLenis();
+      initMotion();
     });
   </script>
 </body>
