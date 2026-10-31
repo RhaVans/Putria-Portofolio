@@ -16,6 +16,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -28,6 +29,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -39,9 +41,27 @@ body {
   overflow-x: clip;
   line-height: 1.5;
   font-size: 1.0625rem;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Accessible focus ring */
+/* Remove default blue tap highlight & click outline, preserve for keyboard navigation (§9) */
+a,
+button,
+[role="button"],
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
 :focus-visible {
   outline: 2px solid var(--sky-400);
   outline-offset: 3px;
@@ -129,6 +149,8 @@ body {
   text-decoration: none;
   border: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
   transition: transform var(--duration-press) var(--ease-ios), filter var(--duration-press) var(--ease-ios);
 }
 
@@ -151,6 +173,8 @@ body {
   text-decoration: none;
   border: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
   transition: transform var(--duration-press) var(--ease-ios), filter var(--duration-press) var(--ease-ios);
 }
 
