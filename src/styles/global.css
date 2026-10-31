@@ -180,19 +180,19 @@ body {
 
 /* Page Transition Styles (§8) */
 ::view-transition-old(root) {
-  animation: 120ms var(--ease-standard) both fade-out;
+  animation: 100ms var(--ease-standard) both fade-out;
 }
 
 ::view-transition-new(root) {
-  animation: 420ms var(--ease-ios) both page-enter;
+  animation: 240ms var(--ease-ios) both page-enter;
 }
 
 [data-nav-dir="forward"]::view-transition-new(root) {
-  animation: 420ms var(--ease-ios) both page-enter-forward;
+  animation: 240ms var(--ease-ios) both page-enter-forward;
 }
 
 [data-nav-dir="backward"]::view-transition-new(root) {
-  animation: 420ms var(--ease-ios) both page-enter-backward;
+  animation: 240ms var(--ease-ios) both page-enter-backward;
 }
 
 @keyframes fade-out {

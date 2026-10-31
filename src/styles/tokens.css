@@ -44,7 +44,7 @@
   --ease-standard: cubic-bezier(.4, 0, .2, 1);
   --duration-press: 120ms;
   --duration-reveal: 480ms;
-  --duration-page: 420ms;
+  --duration-page: 240ms;
 
   /* Glass Blur v2 (§5.5) */
   --glass-blur: 24px;
