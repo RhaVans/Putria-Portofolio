@@ -3,7 +3,6 @@ import { ClientRouter } from 'astro:transitions';
 import AmbientBackground from '../components/AmbientBackground.astro';
 import TopNav from '../components/TopNav.astro';
 import TabBar from '../components/TabBar.astro';
-import MobileHeader from '../components/MobileHeader.astro';
 import site from '../content/site.json';
 import '../styles/global.css';
 
@@ -43,13 +42,13 @@ const currentPath = Astro.url.pathname;
   <meta property="og:site_name" content={site.name} />
   <meta property="og:image" content="/images/og-image.png" />
 
-  <!-- Preload hero display font only (§5.5) -->
-  <link rel="preload" href="/fonts/bodoni-moda-700-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <!-- Self-hosted Inter Variable Font preload (§5.2) -->
+  <link rel="preload" href="/fonts/inter-variable-latin.woff2" as="font" type="font/woff2" crossorigin />
 
   <!-- Favicon Monogram -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- JSON-LD Minimal Person Schema (§11) -->
+  <!-- Minimal Person Schema (§11) -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Person",
@@ -68,18 +67,18 @@ const currentPath = Astro.url.pathname;
   <!-- Skip Link for Accessibility (§9) -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Ambient Depth & Starry Layers (§5.2) -->
+  <!-- Ambient Depth Stack (§5.2) -->
   <AmbientBackground />
 
-  <!-- Persistent Chrome (§6, §7) -->
-  <MobileHeader />
+  <!-- Desktop Top Capsule Nav (§7) -->
   <TopNav currentPath={currentPath} />
 
-  <!-- Dynamic Content Shell -->
+  <!-- Content Canvas -->
   <main id="main-content" class="main-wrapper">
     <slot />
   </main>
 
+  <!-- Mobile Floating Tab Bar (§7) -->
   <TabBar currentPath={currentPath} />
 
   <!-- Screen reader route change announcer (§6, §9) -->
@@ -104,12 +103,12 @@ const currentPath = Astro.url.pathname;
       min-height: 100svh;
       display: flex;
       flex-direction: column;
-      padding-bottom: 90px; /* Space for mobile tab bar */
+      padding-bottom: 96px; /* Space for mobile floating tab bar */
     }
 
     @media (min-width: 768px) {
       .main-wrapper {
-        padding-top: 96px; /* Space for top nav */
+        padding-top: 88px; /* Space for desktop top nav */
         padding-bottom: 40px;
       }
     }

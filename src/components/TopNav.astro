@@ -1,5 +1,4 @@
 ---
-import site from '../content/site.json';
 import strings from '../content/strings.en.json';
 
 interface Props {
@@ -10,145 +9,97 @@ const { currentPath } = Astro.props;
 const cleanPath = currentPath.replace(/\/$/, '') || '/';
 
 const navItems = [
+  { href: '/', label: strings.nav.home },
   { href: '/about', label: strings.nav.about },
   { href: '/work', label: strings.nav.work },
   { href: '/contact', label: strings.nav.contact }
 ];
 ---
-<header class="desktop-header section-shell" transition:name="desktop-header">
-  <div class="glass glass-pill nav-pill">
-    <a href="/" class="nav-monogram">
-      <span class="monogram-box" aria-hidden="true">{site.initials}</span>
-      <span class="monogram-name">{site.name}</span>
-    </a>
-
-    <nav class="nav-links" aria-label="Desktop primary">
-      {navItems.map((item) => {
-        const isActive = cleanPath === item.href || (item.href === '/work' && cleanPath.startsWith('/work'));
-        return (
-          <a
-            href={item.href}
-            class={`nav-link ${isActive ? 'active' : ''}`}
-            aria-current={isActive ? 'page' : undefined}
-          >
-            {item.label}
-            {isActive && <span class="active-dot" transition:name="active-desktop-dot" />}
-          </a>
-        );
-      })}
-    </nav>
-
-    <div class="nav-action">
-      <a href={`mailto:${site.email}`} class="btn-primary say-hello-btn">
-        <span>{strings.nav.sayHello}</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="7" y1="17" x2="17" y2="7"></line>
-          <polyline points="7 7 17 7 17 17"></polyline>
-        </svg>
-      </a>
-    </div>
-  </div>
+<header class="desktop-nav-wrapper" transition:name="desktop-header">
+  <nav class="glass glass-capsule desktop-nav" aria-label="Primary navigation">
+    {navItems.map((item) => {
+      const isActive = item.href === '/'
+        ? cleanPath === '/'
+        : cleanPath.startsWith(item.href);
+      return (
+        <a
+          href={item.href}
+          class={`nav-item ${isActive ? 'active' : ''}`}
+          aria-current={isActive ? 'page' : undefined}
+        >
+          {isActive && (
+            <span class="active-pill" transition:name="active-desktop-pill" />
+          )}
+          <span class="nav-label">{item.label}</span>
+        </a>
+      );
+    })}
+  </nav>
 </header>
 
 <style>
-  .desktop-header {
+  .desktop-nav-wrapper {
     display: none;
     position: fixed;
-    top: 20px;
+    top: 24px;
     left: 0;
     right: 0;
     z-index: 50;
+    justify-content: center;
     pointer-events: none;
   }
 
   @media (min-width: 768px) {
-    .desktop-header {
-      display: block;
+    .desktop-nav-wrapper {
+      display: flex;
     }
   }
 
-  .nav-pill {
+  .desktop-nav {
     pointer-events: auto;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    height: 64px;
-    padding: 0 16px 0 20px;
-    box-shadow: inset 0 1px 0 rgba(242, 225, 153, 0.2), 0 20px 48px -12px rgba(8, 8, 28, 0.7);
+    gap: 4px;
+    height: 44px;
+    padding: 4px 6px;
+    border-radius: var(--radius-capsule);
   }
 
-  .nav-monogram {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--starlight-200);
-    text-decoration: none;
-  }
-
-  .monogram-box {
-    display: flex;
+  .nav-item {
+    position: relative;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
     height: 36px;
-    border-radius: var(--radius-chip);
-    background: rgba(27, 58, 104, 0.7);
-    border: 1px solid var(--border-glass);
-    font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--moon-400);
-    letter-spacing: 0.05em;
-  }
-
-  .monogram-name {
-    font-family: var(--font-display);
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .nav-link {
-    position: relative;
-    padding: 8px 16px;
-    border-radius: var(--radius-pill);
-    font-size: 15px;
+    padding: 0 16px;
+    border-radius: var(--radius-capsule);
+    font-size: 0.9375rem; /* 15px */
     font-weight: 500;
-    color: var(--text-muted);
-    transition: color var(--duration-micro) var(--ease-out);
+    color: var(--text-2);
     text-decoration: none;
+    transition: color var(--duration-press) var(--ease-ios);
+    z-index: 1;
   }
 
-  .nav-link:hover {
-    color: var(--starlight-200);
+  .nav-item:hover {
+    color: var(--text-1);
   }
 
-  .nav-link.active {
-    color: var(--moon-400);
-    font-weight: 600;
+  .nav-item.active {
+    color: var(--text-1);
   }
 
-  .active-dot {
+  .active-pill {
     position: absolute;
-    bottom: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: var(--moon-400);
-    box-shadow: 0 0 8px var(--moon-400);
+    inset: 0;
+    border-radius: var(--radius-capsule);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 8px rgba(8, 8, 28, 0.4);
+    z-index: -1;
   }
 
-  .say-hello-btn {
-    min-height: 40px;
-    padding: 8px 20px;
-    font-size: 14px;
+  .nav-label {
+    position: relative;
+    z-index: 1;
   }
 </style>

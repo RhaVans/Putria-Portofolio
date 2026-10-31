@@ -1,0 +1,115 @@
+---
+import site from '../content/site.json';
+import strings from '../content/strings.en.json';
+---
+<section class="hello-chapter" id="contact" aria-labelledby="hello-heading">
+  <div class="content-shell">
+    <div class="hello-content">
+      <h2 id="hello-heading" class="section-h2">{strings.contact.heading}</h2>
+      <p class="text-body hello-line">{strings.contact.line}</p>
+
+      <a href={`mailto:${site.email}`} class="hello-email-link">
+        {site.email}
+      </a>
+
+      <div class="hello-actions">
+        <a href={`mailto:${site.email}`} class="btn-primary">
+          <span>{strings.contact.emailPutria}</span>
+        </a>
+        <button type="button" class="btn-glass glass copy-email-btn" data-email={site.email}>
+          <span class="copy-label">{strings.contact.copyEmail}</span>
+        </button>
+        <a href="/cv.pdf" download="Putria_Octavianty_CV.pdf" class="btn-glass glass">
+          <span>{strings.contact.downloadCv}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hello-chapter {
+    padding-block: var(--section-pad-mobile);
+  }
+
+  @media (min-width: 1024px) {
+    .hello-chapter {
+      padding-block: var(--section-pad-desktop);
+    }
+  }
+
+  .hello-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 760px;
+  }
+
+  @media (min-width: 1024px) {
+    .hello-content {
+      gap: var(--space-5);
+    }
+  }
+
+  .hello-line {
+    color: var(--text-2);
+  }
+
+  .hello-email-link {
+    display: inline-block;
+    font-size: clamp(1.5rem, 4.5vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--sky-400);
+    text-decoration: none;
+    word-break: break-all;
+    margin-block: var(--space-3);
+    transition: color var(--duration-press) var(--ease-ios);
+  }
+
+  .hello-email-link:hover {
+    color: var(--text-1);
+  }
+
+  .hello-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+</style>
+
+<script>
+  import { copyToClipboard } from '../scripts/clipboard';
+
+  function setupCopyBtn() {
+    const copyBtns = document.querySelectorAll<HTMLButtonElement>('.copy-email-btn');
+    copyBtns.forEach((btn) => {
+      if (btn.dataset.copyBound === 'true') return;
+      btn.dataset.copyBound = 'true';
+
+      btn.addEventListener('click', async () => {
+        const email = btn.getAttribute('data-email');
+        const label = btn.querySelector<HTMLElement>('.copy-label');
+        if (!email || !label) return;
+
+        const success = await copyToClipboard(email);
+        const original = label.textContent || 'Copy email';
+
+        if (success) {
+          label.textContent = 'Copied to clipboard!';
+        } else {
+          label.textContent = email;
+        }
+
+        setTimeout(() => {
+          label.textContent = original;
+        }, 2200);
+      });
+    });
+  }
+
+  setupCopyBtn();
+  document.addEventListener('astro:page-load', setupCopyBtn);
+</script>

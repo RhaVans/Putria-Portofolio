@@ -4,72 +4,31 @@
     "slug": "general-treasurer-ipm",
     "role": "General Treasurer",
     "organization": "Ikatan Pelajar Muhammadiyah Gombong",
-    "orgType": "Student Organization",
     "period": "Oct 2024 – Nov 2025",
-    "startDate": "2024-10",
-    "endDate": "2025-11",
-    "tagline": "Financial administration and budget tracking across student organizational initiatives.",
-    "bullets": [
-      "Managed organizational finances with precise accountability",
-      "Tracked organizational expenses and established realistic program budgets",
-      "Prepared and presented transparent financial reports"
-    ],
-    "skills": ["Financial administration", "Budget tracking", "Reporting", "Organization"],
-    "abstractTheme": "finance"
+    "description": "I managed the organization's finances, tracked expenses and budgets, and prepared financial reports."
   },
   {
     "id": "watermelon-shampoo",
     "slug": "organic-shampoo-project",
     "role": "Project Leader",
-    "organization": "SMA Muhammadiyah Gombong",
-    "orgType": "Applied Science Project",
+    "organization": "Organic watermelon rind shampoo",
     "period": "Mar – Apr 2025",
-    "startDate": "2025-03",
-    "endDate": "2025-04",
-    "tagline": "Developing eco-conscious personal care products from organic agricultural waste.",
-    "bullets": [
-      "Authored and presented the foundational project proposal",
-      "Developed organic shampoo formulated from watermelon rind waste",
-      "Coordinated cross-functional team members through experimental product formulation"
-    ],
-    "skills": ["Project leadership", "Product development", "Proposal writing", "Team collaboration"],
-    "abstractTheme": "organic"
+    "description": "I wrote the project proposal and worked with my team to develop an organic shampoo from watermelon rind waste."
   },
   {
     "id": "science-textbook",
     "slug": "science-textbook-editorial",
     "role": "Editorial Team Member",
-    "organization": "SMA Muhammadiyah Gombong",
-    "orgType": "Curriculum Publishing",
+    "organization": "Junior high school science textbook",
     "period": "Jan – Feb 2025",
-    "startDate": "2025-01",
-    "endDate": "2025-02",
-    "tagline": "Curating, drafting, and structuring junior high school science instructional materials.",
-    "bullets": [
-      "Drafted comprehensive science learning materials for junior high school students",
-      "Organized and structured instructional content logically for clarity",
-      "Edited and refined page typography, layout, and visual flow"
-    ],
-    "skills": ["Editorial work and layout", "Content structuring", "Instructional drafting", "Detail orientation"],
-    "abstractTheme": "editorial"
+    "description": "I drafted science learning materials, organized the content, and refined the page layout."
   },
   {
     "id": "leadership-camp",
     "slug": "leadership-camp-coordinator",
     "role": "Event Coordinator",
-    "organization": "SMA Muhammadiyah Gombong",
-    "orgType": "Leadership Program",
+    "organization": "Leadership Camp, SMA Muhammadiyah Gombong",
     "period": "Apr – Oct 2024",
-    "startDate": "2024-04",
-    "endDate": "2024-10",
-    "tagline": "End-to-end coordination, schedule architecture, and risk mitigation for student leadership development.",
-    "bullets": [
-      "Planned the master event schedule and milestone timelines",
-      "Coordinated closely across all student organizing committees",
-      "Identified logistical risks and prepared proactive mitigation contingencies",
-      "Supervised on-the-ground operational preparation and execution"
-    ],
-    "skills": ["Event coordination", "Risk planning", "Committee alignment", "Operations supervision"],
-    "abstractTheme": "leadership"
+    "description": "I planned the schedule, coordinated the organizing committees, prepared for risks, and supervised the event from preparation to the day itself."
   }
 ]

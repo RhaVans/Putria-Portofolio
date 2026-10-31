@@ -1,112 +1,69 @@
 # Putria Octavianty — Portfolio Website
 
-A fast, mobile-first, one-person portfolio website for **Putria Octavianty** designed with dark **glassmorphism** in the **Starry Night** palette, responsive layouts, smooth View Transitions between pages, and first-class performance on mid-range mobile devices.
+A calm, precise, Apple-grade portfolio website designed for **Putria Octavianty** (Event coordinator, editor, and student leader based in Kebumen, Indonesia).
+
+Built with **Astro**, **TypeScript**, **Inter variable font**, and a disciplined **Starry Night glassmorphism** visual system.
 
 ---
 
-## 1. Quick Start
+## Design System & Architecture
 
-### Prerequisites
-- Node.js `20.19+` (or `22.x+`)
-- `pnpm` (recommended package manager)
+- **Palette:** Starry Night tokens (`--night-950`, `--night-900`, `--night-700`, `--sky-400`, `--moon-400`, `--starlight-200`). Exactly one Moon-yellow primary action per viewport.
+- **Typography:** Self-hosted `Inter` variable font with optical sizing (`font-optical-sizing: auto`). Scaled from 14px captions to clamp hero display.
+- **Surfaces:**
+  - **Glass:** Navigation controls (desktop top capsule, mobile bottom floating tab bar), secondary buttons, detail sheets.
+  - **Surface:** Flat grouped list surface without blur (`rgb(247 243 227 / 0.05)`) with hairlines for structured details.
+  - **Canvas:** Content sits directly on the dark starry field without redundant card boxing.
+- **Hero:** Mobile and desktop composed layout with zero text overlap over the portrait cut-out. Scarf silhouette separation against warm crescent glow.
+- **Performance & Privacy:** 
+  - Zero private CV data published (§10).
+  - Responsive AVIF/WebP image sets (hero mobile image ≤ 90 KB).
+  - Native scrolling on mobile, optional Lenis smooth scrolling on desktop pointer devices.
+  - Fluid view transitions with directional morphing.
 
-### Development Server
-```bash
-# Install dependencies
-pnpm install
+---
 
-# Start the Astro development server at http://localhost:4321
-pnpm dev
+## Project Structure
+
+```text
+├── public/
+│   ├── cv.pdf                 # Sanitized student CV
+│   ├── favicon.svg            # Monogram favicon
+│   ├── fonts/                 # Self-hosted Inter variable woff2
+│   └── images/                # Responsive portrait AVIF/WebP & OG image
+├── src/
+│   ├── components/
+│   │   ├── AmbientBackground.astro # Two calm radial depth gradients
+│   │   ├── Footer.astro            # Minimal one-line footer
+│   │   ├── Hero.astro              # Composed hero chapter
+│   │   ├── HowIWork.astro          # Scroll-linked fluid statements
+│   │   ├── SayHello.astro          # Closing contact chapter
+│   │   ├── TabBar.astro            # Mobile bottom floating glass capsule
+│   │   ├── TopNav.astro            # Desktop top floating glass capsule
+│   │   └── WorkRows.astro          # Hairline-separated initiative rows
+│   ├── content/
+│   │   ├── experience.json         # Verifiable student leadership records
+│   │   ├── site.json               # Identity & metadata
+│   │   └── strings.en.json         # Verbatim first-person copy deck
+│   ├── layouts/
+│   │   └── Base.astro              # Document shell, SEO, View Transitions
+│   └── styles/
+│       ├── tokens.css              # Color, spacing, type scale tokens
+│       ├── glass.css               # Apple-grade glass and surface recipes
+│       └── global.css              # Base resets, typography, view transition styles
 ```
 
-### Production Build
+---
+
+## Development & Build
+
 ```bash
-# Build the production-ready static site into dist/
-pnpm build
+# Run local dev server with network host
+pnpm run dev
 
-# Preview the production build locally
-pnpm preview
+# Static production build
+pnpm run build
+
+# Preview production build
+pnpm run preview
 ```
-
----
-
-## 2. Content Architecture
-
-All website copy and data are strictly separated into structured JSON files under [`src/content/`](file:///root/projects/PUT/src/content/):
-
-- [`src/content/experience.json`](file:///root/projects/PUT/src/content/experience.json): Chronological record of Putria's 4 verified roles (General Treasurer, Project Leader, Editorial Team Member, Event Coordinator). Includes dates, organization names, verified accomplishments, key capabilities, and detail slugs.
-- [`src/content/site.json`](file:///root/projects/PUT/src/content/site.json): Site identity, meta descriptions, contact details (email, location), education records (SMA Muhammadiyah Gombong Class of 2026), and language proficiencies (Javanese Native, English B1/B2).
-- [`src/content/strings.en.json`](file:///root/projects/PUT/src/content/strings.en.json): All interface UI labels, section titles, verified capability descriptions, 4-step process copy, and the 75-word factual bio draft. Keyed by locale to allow an Indonesian version (`strings.id.json`) without modifying UI components.
-
----
-
-## 3. Privacy & Safety Protection
-
-This site implements strict privacy boundaries as defined in the project specification (§10):
-
-1. **Zero Private Data Published:**
-   - Putria's National Identification Number (NIK), birth date, exact age, street/village/RT/RW address, and phone number are **strictly excluded** from the codebase, git history, and built HTML/JS assets.
-   - Only her verified display name (*Putria Octavianty*), city (*Kebumen, Indonesia*), and contact email (*pramestiputria03@gmail.com*) are published.
-2. **Sanitized CV Generation:**
-   - The original CV PDF and raw portrait are kept in `_private/` (which is `.gitignore`d and never published).
-   - Clicking "Download CV" serves [`public/cv.pdf`](file:///root/projects/PUT/public/cv.pdf), a clean 1-page professional CV generated by `scripts/make-cv.mjs` containing only verified credentials, with all author metadata and private identifiers stripped.
-3. **Launch Gate:**
-   - To ensure Putria reviews and authorizes all statements before public indexing, the site includes:
-     - `<meta name="robots" content="noindex, nofollow" />` in [`src/layouts/Base.astro`](file:///root/projects/PUT/src/layouts/Base.astro)
-     - `Disallow: /` in [`public/robots.txt`](file:///root/projects/PUT/public/robots.txt)
-   - Instructions to lift the gate upon approval are detailed in [`TODO-FOR-PUTRIA.md`](file:///root/projects/PUT/TODO-FOR-PUTRIA.md).
-
----
-
-## 4. Visual System & Design Tokens
-
-Built around Vincent van Gogh's *Starry Night* palette:
-
-| Token | Hex Value | Primary Role |
-|---|---|---|
-| `--night-900` | `#191939` | Page base background, `theme-color`, contrast text on action buttons |
-| `--night-700` | `#1B3A68` | Glass tint, secondary cards, backdrop foundation |
-| `--sky-400` | `#6FB8E6` | Cool accent: links, icons, cool glow, focus outlines (7.8:1 contrast) |
-| `--moon-400` | `#ECB44D` | **Action only**: primary CTA buttons, active nav indicators, moon arc (9.0:1 contrast) |
-| `--starlight-200` | `#F2E199` | Headlines, highlights, glass edge specular reflections (12.9:1 contrast) |
-| `--text-main` | `#FBF6E0` | High-contrast body copy derived from Starlight (14.2:1 contrast) |
-
-### Glassmorphism Recipe
-- Mobile blur capped at `10px` and desktop at `18px` (`var(--glass-blur)`).
-- Never animated, never nested, and constrained to maximum 5 surfaces per mobile screen for fluid 60 fps rendering.
-- Graceful fallbacks for browsers without `backdrop-filter` or with `prefers-reduced-transparency: reduce`.
-
----
-
-## 5. Deployment Guide
-
-The production build in [`dist/`](file:///root/projects/PUT/dist/) consists purely of pre-rendered static HTML, CSS, JavaScript, self-hosted WOFF2 fonts, and AVIF/WebP images.
-
-### Recommended Hosts:
-1. **Cloudflare Pages:**
-   - Build command: `pnpm run build`
-   - Build output directory: `dist`
-   - Node.js version: `20` or higher
-2. **Vercel / Netlify:**
-   - Framework preset: `Astro`
-   - Build command: `pnpm run build`
-   - Output directory: `dist`
-3. **GitHub Pages:**
-   - Deploy `dist/` branch via GitHub Actions.
-
----
-
-## 6. Project Defaults Log (D1 – D10)
-
-Per specification §14, all engineering decisions follow these explicit defaults:
-
-- **D1 (Display Name):** Displayed consistently as **Putria Octavianty**.
-- **D2 (Missing Metadata):** Unlisted items (client counts, awards, years of freelance experience, software logos) are omitted; nothing is invented.
-- **D3 (Bio Statement):** Factual 75-word first-person draft constructed strictly from verified accomplishments.
-- **D4 (Process Step Names):** 4-step sequence from Leadership Camp: *01 Plan → 02 Coordinate → 03 Anticipate → 04 Supervise*.
-- **D5 (Framework):** Astro 5 Static SSG with `<ClientRouter />` View Transitions and zero client-side framework overhead.
-- **D6 (Education Status):** Formatted as "Class of 2026 (2023 – 2026)", Natural Sciences & Mathematics track at SMA Muhammadiyah Gombong.
-- **D7 (Color Tokens):** Starry Night hex codes extracted directly from reference palette swatch.
-- **D8 (Accent Balance):** Sky ~10%, Moon ~2% (action only), Starlight ~5%, Night ~83%.
-- **D9 (Motion):** Hardware-accelerated CSS `transform`/`opacity` only, View Transitions with instant fallback on `prefers-reduced-motion`.
-- **D10 (Privacy):** Zero private CV details published, sanitized 1-page CV generator, search engine launch gate active until owner sign-off.

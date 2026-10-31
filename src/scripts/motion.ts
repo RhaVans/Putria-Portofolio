@@ -1,76 +1,37 @@
-// Motion polish and interactive card specular highlights (§6)
+// Motion v2 (§8): Apple-grade tactile interactions, no generic card tilts
 
 export function initMotion() {
   const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (isFinePointer && !prefersReduced) {
-    initCardTilt();
+    initGlassSpecular();
   }
 
-  initScrollReveals(prefersReduced);
+  initHeroSessionState();
 }
 
-function initCardTilt() {
-  const cards = document.querySelectorAll<HTMLElement>('[data-card-tilt]');
-
-  cards.forEach((card) => {
-    if (card.dataset.tiltBound === 'true') return;
-    card.dataset.tiltBound = 'true';
-
-    let bounds: DOMRect | null = null;
-    let isHovered = false;
-
-    card.addEventListener('mouseenter', () => {
-      bounds = card.getBoundingClientRect();
-      isHovered = true;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      isHovered = false;
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-    });
-
-    card.addEventListener('mousemove', (e) => {
-      if (!isHovered || !bounds) return;
-
-      requestAnimationFrame(() => {
-        const mouseX = e.clientX - bounds!.left;
-        const mouseY = e.clientY - bounds!.top;
-        const xPct = (mouseX / bounds!.width) - 0.5;
-        const yPct = (mouseY / bounds!.height) - 0.5;
-
-        // Strict limit: tilt <= 4deg (§6)
-        const tiltX = (yPct * -7).toFixed(2);
-        const tiltY = (xPct * 7).toFixed(2);
-
-        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-3px)`;
-      });
-    });
-  });
+function initHeroSessionState() {
+  if (sessionStorage.getItem('putria_hero_entered')) {
+    document.documentElement.dataset.heroEntered = 'true';
+  } else {
+    sessionStorage.setItem('putria_hero_entered', 'true');
+  }
 }
 
-function initScrollReveals(prefersReduced: boolean) {
-  if (prefersReduced) return;
+function initGlassSpecular() {
+  const glassControls = document.querySelectorAll<HTMLElement>('.desktop-nav, .mobile-tabbar, .btn-glass');
 
-  const revealGroups = document.querySelectorAll<HTMLElement>('.capabilities-grid, .process-flow, .statbar-container');
+  glassControls.forEach((el) => {
+    if (el.dataset.specularBound === 'true') return;
+    el.dataset.specularBound = 'true';
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-revealed');
-        observer.unobserve(entry.target);
-      }
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      el.style.setProperty('--cursor-x', `${x}px`);
+      el.style.setProperty('--cursor-y', `${y}px`);
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -40px 0px'
-  });
-
-  revealGroups.forEach((el) => {
-    if (el.dataset.revealBound === 'true') return;
-    el.dataset.revealBound = 'true';
-    el.classList.add('reveal-group');
-    observer.observe(el);
   });
 }

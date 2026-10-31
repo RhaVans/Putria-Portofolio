@@ -1,124 +1,85 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Footer from '../../components/Footer.astro';
-import AbstractCover from '../../components/AbstractCover.astro';
 import site from '../../content/site.json';
 import strings from '../../content/strings.en.json';
 import experience from '../../content/experience.json';
 
 export function getStaticPaths() {
-  return experience.map((exp) => ({
-    params: { slug: exp.slug },
-    props: { experience: exp }
-  }));
+  return experience.map((exp, index) => {
+    const prev = index > 0 ? experience[index - 1] : null;
+    const next = index < experience.length - 1 ? experience[index + 1] : null;
+    return {
+      params: { slug: exp.slug },
+      props: { exp, prev, next }
+    };
+  });
 }
 
-interface Props {
-  experience: (typeof experience)[0];
-}
-
-const { experience: exp } = Astro.props;
+const { exp, prev, next } = Astro.props;
 ---
 <Base
-  title={`${exp.role} — ${exp.organization}`}
-  description={`${exp.role} at ${exp.organization} (${exp.period}). ${exp.tagline}`}
+  title={`${exp.role} — ${site.name}`}
+  description={`${exp.role} at ${exp.organization} (${exp.period}).`}
 >
-  <div class="detail-page section-shell">
-    <!-- Back breadcrumb -->
+  <div class="detail-page content-shell">
+    <!-- Back to work -->
     <nav class="back-nav" aria-label="Breadcrumb">
-      <a href="/work" class="back-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
+      <a href="/work" class="back-link ui-label">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6" />
         </svg>
         <span>{strings.work.backToWork}</span>
       </a>
     </nav>
 
-    <!-- Main Detail Glass Sheet -->
-    <article class="glass glass-hero detail-sheet">
-      <!-- Morphing Cover Banner (§6) -->
-      <div class="detail-banner" transition:name={`work-cover-${exp.slug}`}>
-        <AbstractCover theme={exp.abstractTheme} title={exp.role} />
-        <div class="banner-overlay">
-          <span class="org-type-pill">{exp.orgType}</span>
-          <span class="period-pill">{exp.period}</span>
-        </div>
+    <!-- Detail Header (§4) -->
+    <header class="detail-header">
+      <h1 class="section-h2 detail-title" transition:name={`work-title-${exp.slug}`}>
+        {exp.role}
+      </h1>
+      <p class="detail-meta text-body">
+        {exp.organization} · <span class="tabular-date">{exp.period}</span>
+      </p>
+    </header>
+
+    <!-- Description Sentence (§4) -->
+    <div class="detail-body">
+      <p class="text-body detail-desc">{exp.description}</p>
+    </div>
+
+    <!-- Grouped List Surface (§4, §5.4) -->
+    <div class="surface-grouped detail-grouped-list" role="list">
+      <div class="grouped-row" role="listitem">
+        <span class="row-label ui-label">{strings.work.roleLabel}</span>
+        <span class="row-val text-body">{exp.role}</span>
       </div>
-
-      <div class="detail-body">
-        <!-- Title and Org Header -->
-        <header class="detail-header">
-          <h1 class="detail-title font-display" transition:name={`work-title-${exp.slug}`}>
-            {exp.role}
-          </h1>
-          <p class="detail-org-name font-display">{exp.organization}</p>
-          <p class="detail-tagline">{exp.tagline}</p>
-        </header>
-
-        <!-- Meta Specification Bar -->
-        <div class="detail-meta-grid">
-          <div class="meta-cell">
-            <span class="meta-label">{strings.work.roleLabel}</span>
-            <span class="meta-value">{exp.role}</span>
-          </div>
-          <div class="meta-cell">
-            <span class="meta-label">{strings.work.orgLabel}</span>
-            <span class="meta-value">{exp.organization}</span>
-          </div>
-          <div class="meta-cell">
-            <span class="meta-label">{strings.work.periodLabel}</span>
-            <span class="meta-value">{exp.period}</span>
-          </div>
-          <div class="meta-cell">
-            <span class="meta-label">Location</span>
-            <span class="meta-value">Kebumen, Indonesia</span>
-          </div>
-        </div>
-
-        <!-- Verified Responsibilities / What she did (§3) -->
-        <section class="detail-section" aria-labelledby="resp-heading">
-          <h2 id="resp-heading" class="section-title font-display">{strings.work.responsibilitiesLabel}</h2>
-          <ul class="responsibilities-list">
-            {exp.bullets.map((bullet) => (
-              <li class="bullet-item">
-                <span class="bullet-dot" aria-hidden="true"></span>
-                <span class="bullet-text">{bullet}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <!-- Skills applied (§3) -->
-        <section class="detail-section" aria-labelledby="skills-applied-heading">
-          <h2 id="skills-applied-heading" class="section-title font-display">{strings.work.skillsShownLabel}</h2>
-          <div class="skills-row">
-            {exp.skills.map((skill) => (
-              <span class="skill-pill">{skill}</span>
-            ))}
-          </div>
-        </section>
-
-        <!-- Verification Notice -->
-        <div class="detail-verification-box">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-          </svg>
-          <span>Verified factual record from official student leadership and curriculum archives.</span>
-        </div>
-
-        <!-- Footer Actions -->
-        <div class="detail-actions">
-          <a href="/work" class="btn-secondary">
-            <span>&larr; Back to all work</span>
-          </a>
-          <a href={`mailto:${site.email}?subject=Inquiry regarding ${encodeURIComponent(exp.role)}`} class="btn-primary">
-            <span>Inquire about this project</span>
-          </a>
-        </div>
+      <div class="grouped-row" role="listitem">
+        <span class="row-label ui-label">{strings.work.orgLabel}</span>
+        <span class="row-val text-body">{exp.organization}</span>
       </div>
-    </article>
+      <div class="grouped-row" role="listitem">
+        <span class="row-label ui-label">{strings.work.datesLabel}</span>
+        <span class="row-val text-body tabular-date">{exp.period}</span>
+      </div>
+    </div>
+
+    <!-- Previous / Next Navigation (§4) -->
+    <nav class="detail-pagination" aria-label="Project navigation">
+      {prev ? (
+        <a href={`/work/${prev.slug}`} class="pag-link prev-link">
+          <span class="pag-dir text-caption">Previous</span>
+          <span class="pag-title ui-label">{prev.role}</span>
+        </a>
+      ) : <div />}
+
+      {next && (
+        <a href={`/work/${next.slug}`} class="pag-link next-link">
+          <span class="pag-dir text-caption">Next</span>
+          <span class="pag-title ui-label">{next.role}</span>
+        </a>
+      )}
+    </nav>
   </div>
 
   <Footer />
@@ -126,240 +87,140 @@ const { experience: exp } = Astro.props;
 
 <style>
   .detail-page {
-    padding-top: calc(var(--mobile-header-height, 64px) + 16px);
-    padding-bottom: 60px;
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 820px;
   }
 
   @media (min-width: 768px) {
     .detail-page {
-      padding-top: 40px;
-      padding-bottom: 80px;
+      padding-top: var(--space-8);
+      gap: var(--space-7);
     }
   }
 
   .back-nav {
-    margin-bottom: 16px;
+    margin-bottom: var(--space-2);
   }
 
   .back-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    font-weight: 500;
+    gap: 6px;
     color: var(--sky-400);
-    min-height: 44px;
-    padding: 4px 0;
-    transition: color var(--duration-micro) var(--ease-out);
     text-decoration: none;
+    min-height: 48px;
+    transition: color var(--duration-press) var(--ease-ios);
   }
 
   .back-link:hover {
-    color: var(--starlight-200);
-  }
-
-  .detail-sheet {
-    max-width: 860px;
-    margin: 0 auto;
-    overflow: hidden;
-    box-shadow: inset 0 1px 0 rgba(242, 225, 153, 0.2), 0 24px 64px -20px rgba(8, 8, 28, 0.85);
-  }
-
-  .detail-banner {
-    position: relative;
-    width: 100%;
-    height: 240px;
-    overflow: hidden;
-    background: var(--night-700);
-  }
-
-  @media (min-width: 768px) {
-    .detail-banner {
-      height: 300px;
-    }
-  }
-
-  .banner-overlay {
-    position: absolute;
-    bottom: 16px;
-    left: 20px;
-    right: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 2;
-  }
-
-  .org-type-pill {
-    font-size: 11.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 600;
-    background: rgba(25, 25, 57, 0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid var(--border-glass);
-    color: var(--sky-400);
-    padding: 4px 12px;
-    border-radius: var(--radius-pill);
-  }
-
-  .period-pill {
-    font-size: 12px;
-    font-weight: 600;
-    background: rgba(25, 25, 57, 0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid var(--border-glass);
-    color: var(--starlight-200);
-    padding: 4px 12px;
-    border-radius: var(--radius-pill);
-  }
-
-  .detail-body {
-    padding: clamp(24px, 5vw, 44px);
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    color: var(--text-1);
   }
 
   .detail-header {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--space-3);
   }
 
   .detail-title {
-    font-size: clamp(2.2rem, 5vw, 3.2rem);
-    color: var(--starlight-200);
-    line-height: 1.15;
+    color: var(--text-1);
   }
 
-  .detail-org-name {
-    font-size: clamp(1.2rem, 3vw, 1.6rem);
-    color: var(--moon-400);
-    font-weight: 600;
+  .detail-meta {
+    color: var(--text-2);
+    font-size: 1.125rem;
   }
 
-  .detail-tagline {
-    font-size: 17px;
-    color: var(--text-muted);
+  .detail-desc {
+    font-size: 1.1875rem;
     line-height: 1.6;
-    margin-top: 6px;
+    color: var(--text-1);
+    max-width: 62ch;
   }
 
-  .detail-meta-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    padding: 20px;
-    border-radius: var(--radius-card);
-    background: rgba(27, 58, 104, 0.35);
-    border: 1px solid var(--border-glass);
+  /* Grouped list container */
+  .detail-grouped-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--space-2);
   }
 
-  @media (min-width: 640px) {
-    .detail-meta-grid {
-      grid-template-columns: repeat(4, 1fr);
+  .grouped-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .grouped-row:last-child {
+    border-bottom: none;
+  }
+
+  @media (min-width: 768px) {
+    .grouped-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      align-items: baseline;
+      gap: var(--space-5);
+      padding: var(--space-5) var(--space-6);
     }
   }
 
-  .meta-cell {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .meta-label {
-    font-size: 11.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  .row-label {
     color: var(--sky-400);
   }
 
-  .meta-value {
-    font-size: 14.5px;
-    font-weight: 500;
-    color: var(--text-primary);
+  .row-val {
+    color: var(--text-1);
   }
 
-  .detail-section {
+  /* Pagination */
+  .detail-pagination {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--hairline);
+    margin-top: var(--space-4);
+  }
+
+  .pag-link {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 4px;
+    text-decoration: none;
+    transition: transform var(--duration-press) var(--ease-ios);
   }
 
-  .section-title {
-    font-size: 1.4rem;
-    color: var(--starlight-200);
+  .pag-link:active {
+    transform: scale(0.98);
   }
 
-  .responsibilities-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .bullet-item {
-    display: flex;
+  .prev-link {
     align-items: flex-start;
-    gap: 12px;
+    text-align: left;
   }
 
-  .bullet-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--moon-400);
-    margin-top: 8px;
-    flex-shrink: 0;
+  .next-link {
+    align-items: flex-end;
+    text-align: right;
   }
 
-  .bullet-text {
-    font-size: 16.5px;
-    color: var(--text-primary);
-    line-height: 1.6;
+  .pag-dir {
+    color: var(--text-3);
   }
 
-  .skills-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  .pag-title {
+    color: var(--sky-400);
+    transition: color var(--duration-press) var(--ease-ios);
   }
 
-  .skill-pill {
-    font-size: 13px;
-    padding: 6px 14px;
-    border-radius: var(--radius-pill);
-    background: rgba(27, 58, 104, 0.55);
-    border: 1px solid rgba(242, 225, 153, 0.15);
-    color: var(--starlight-200);
-  }
-
-  .detail-verification-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: var(--text-subtle);
-    background: rgba(27, 58, 104, 0.25);
-    padding: 12px 18px;
-    border-radius: var(--radius-chip);
-    border: 1px solid var(--border-glass);
-  }
-
-  .detail-verification-box svg {
-    color: var(--moon-400);
-    flex-shrink: 0;
-  }
-
-  .detail-actions {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-top: 8px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(242, 225, 153, 0.1);
+  .pag-link:hover .pag-title {
+    color: var(--text-1);
   }
 </style>

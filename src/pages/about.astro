@@ -3,101 +3,42 @@ import Base from '../layouts/Base.astro';
 import Footer from '../components/Footer.astro';
 import site from '../content/site.json';
 import strings from '../content/strings.en.json';
+
+const groupedDetails = [
+  { label: strings.about.skillsLabel, value: strings.about.skillsValue },
+  { label: strings.about.languagesLabel, value: strings.about.languagesValue },
+  { label: strings.about.educationLabel, value: strings.about.educationValue },
+  { label: strings.about.locationLabel, value: strings.about.locationValue }
+];
 ---
 <Base
   title={`About — ${site.name}`}
   description={`Background, education, languages, and competencies of ${site.name}.`}
 >
-  <div class="about-page section-shell">
-    <!-- Header -->
-    <header class="about-header">
-      <span class="section-eyebrow">{strings.about.eyebrow}</span>
-      <h1 class="about-title font-display">{strings.about.heading}</h1>
+  <div class="about-page content-shell">
+    <header class="page-header">
+      <h1 class="section-h2">{strings.about.heading}</h1>
     </header>
 
-    <div class="about-grid">
-      <!-- Bio Glass Card -->
-      <section class="glass glass-card about-card bio-card" aria-labelledby="bio-heading">
-        <h2 id="bio-heading" class="card-heading font-display">Biography</h2>
-        <p class="bio-text">{strings.about.bio}</p>
-        <div class="bio-draft-tag">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="16" x2="12" y2="12"></line>
-            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-          </svg>
-          <span>{strings.about.bioNotice}</span>
-        </div>
-      </section>
-
-      <!-- Education Glass Card (§3) -->
-      <section class="glass glass-card about-card" aria-labelledby="edu-heading">
-        <h2 id="edu-heading" class="card-heading font-display">{strings.about.educationHeading}</h2>
-        <div class="card-content-stack">
-          <div class="edu-item">
-            <div class="edu-meta-row">
-              <span class="edu-institution font-display">{site.education.institution}</span>
-              <span class="edu-badge">{site.education.cohort}</span>
-            </div>
-            <p class="edu-track">{site.education.track}</p>
-            <div class="edu-details-row">
-              <span class="edu-sub">{site.education.eqfLevel}</span>
-              <span class="edu-dot">&bull;</span>
-              <span class="edu-sub">{site.education.period}</span>
-              <span class="edu-dot">&bull;</span>
-              <span class="edu-sub">Kebumen, Indonesia</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Languages Glass Card (Honest levels §3) -->
-      <section class="glass glass-card about-card" aria-labelledby="lang-heading">
-        <h2 id="lang-heading" class="card-heading font-display">{strings.about.languagesHeading}</h2>
-        <div class="languages-list">
-          {site.languages.map((lang) => (
-            <div class="lang-item">
-              <div class="lang-header-row">
-                <strong class="lang-name">{lang.name}</strong>
-                <span class="lang-badge">{lang.badge}</span>
-              </div>
-              <p class="lang-prof">{lang.proficiency}</p>
-              {lang.details && (
-                <div class="lang-cefr-grid">
-                  <span class="cefr-pill">Listening: {lang.details.listening}</span>
-                  <span class="cefr-pill">Reading: {lang.details.reading}</span>
-                  <span class="cefr-pill">Speaking: {lang.details.speaking}</span>
-                  <span class="cefr-pill">Writing: {lang.details.writing}</span>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- Skills Glass Card (§3) -->
-      <section class="glass glass-card about-card" aria-labelledby="skills-heading">
-        <h2 id="skills-heading" class="card-heading font-display">{strings.about.skillsHeading}</h2>
-        <div class="skills-wrap">
-          {site.skills.map((skill) => (
-            <span class="skill-chip">{skill}</span>
-          ))}
-        </div>
-        <p class="skills-note">Documented across student governance, project leadership, and curriculum publishing.</p>
-      </section>
+    <!-- Bio Statement -->
+    <div class="bio-block">
+      <p class="text-body bio-text">{strings.about.bio}</p>
     </div>
 
-    <!-- Quick action footer -->
-    <div class="about-action-strip">
-      <a href="/work" class="btn-primary">
-        <span>Explore projects</span>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-      </a>
-      <a href="/cv.pdf" download="Putria_Octavianty_CV.pdf" class="btn-secondary">
-        <span>Download verified CV</span>
+    <!-- Grouped List Surface (§5.4, §6.2) -->
+    <div class="surface-grouped about-grouped-list" role="list">
+      {groupedDetails.map((item) => (
+        <div class="grouped-row" role="listitem">
+          <span class="row-label ui-label">{item.label}</span>
+          <span class="row-val text-body">{item.value}</span>
+        </div>
+      ))}
+    </div>
+
+    <!-- CV Action -->
+    <div class="about-action">
+      <a href="/cv.pdf" download="Putria_Octavianty_CV.pdf" class="btn-glass glass">
+        <span>Download CV</span>
       </a>
     </div>
   </div>
@@ -107,225 +48,71 @@ import strings from '../content/strings.en.json';
 
 <style>
   .about-page {
-    padding-top: calc(var(--mobile-header-height, 64px) + 20px);
-    padding-bottom: 60px;
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 820px;
   }
 
   @media (min-width: 768px) {
     .about-page {
-      padding-top: 48px;
-      padding-bottom: 80px;
+      padding-top: var(--space-9);
+      gap: var(--space-7);
     }
   }
 
-  .about-header {
-    margin-bottom: 36px;
-    max-width: 680px;
-  }
-
-  .section-eyebrow {
-    display: block;
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--sky-400);
-    margin-bottom: 6px;
-  }
-
-  .about-title {
-    font-size: clamp(2.4rem, 5vw, 3.8rem);
-    color: var(--starlight-200);
-    line-height: 1.1;
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  @media (min-width: 768px) {
-    .about-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-
-    .bio-card {
-      grid-column: span 2;
-    }
-  }
-
-  .about-card {
-    padding: clamp(24px, 4vw, 36px);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .card-heading {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--starlight-200);
-    line-height: 1.2;
+  .bio-block {
+    max-width: 62ch;
   }
 
   .bio-text {
-    font-size: 17.5px;
-    line-height: 1.7;
-    color: var(--text-primary);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--text-1);
   }
 
-  .bio-draft-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12.5px;
-    color: var(--sky-400);
-    background: rgba(111, 184, 230, 0.1);
-    border: 1px solid rgba(111, 184, 230, 0.2);
-    padding: 6px 14px;
-    border-radius: var(--radius-pill);
-    margin-top: 8px;
-  }
-
-  /* Education card */
-  .edu-item {
+  /* Grouped list container (§5.4) */
+  .about-grouped-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    margin-top: var(--space-2);
   }
 
-  .edu-meta-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .edu-institution {
-    font-size: 1.3rem;
-    color: var(--starlight-200);
-  }
-
-  .edu-badge {
-    font-size: 12px;
-    font-weight: 600;
-    background: rgba(236, 180, 77, 0.15);
-    border: 1px solid rgba(236, 180, 77, 0.3);
-    color: var(--moon-400);
-    padding: 3px 10px;
-    border-radius: var(--radius-pill);
-  }
-
-  .edu-track {
-    font-size: 15.5px;
-    color: var(--text-muted);
-  }
-
-  .edu-details-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13.5px;
-    color: var(--text-subtle);
-    flex-wrap: wrap;
-  }
-
-  .edu-dot {
-    color: var(--border-glass);
-  }
-
-  /* Languages */
-  .languages-list {
+  .grouped-row {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--hairline);
   }
 
-  .lang-item {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(242, 225, 153, 0.08);
-  }
-
-  .lang-item:last-child {
+  .grouped-row:last-child {
     border-bottom: none;
-    padding-bottom: 0;
   }
 
-  .lang-header-row {
+  @media (min-width: 768px) {
+    .grouped-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      align-items: baseline;
+      gap: var(--space-5);
+      padding: var(--space-5) var(--space-6);
+    }
+  }
+
+  .row-label {
+    color: var(--sky-400);
+  }
+
+  .row-val {
+    color: var(--text-1);
+  }
+
+  .about-action {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-  }
-
-  .lang-name {
-    font-size: 16px;
-    color: var(--starlight-200);
-  }
-
-  .lang-badge {
-    font-size: 11.5px;
-    font-weight: 600;
-    color: var(--sky-400);
-    background: rgba(111, 184, 230, 0.12);
-    border: 1px solid rgba(111, 184, 230, 0.22);
-    padding: 2px 8px;
-    border-radius: var(--radius-pill);
-  }
-
-  .lang-prof {
-    font-size: 14px;
-    color: var(--text-muted);
-  }
-
-  .lang-cefr-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 6px;
-  }
-
-  .cefr-pill {
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: var(--radius-chip);
-    background: rgba(27, 58, 104, 0.5);
-    border: 1px solid var(--border-glass);
-    color: var(--text-muted);
-  }
-
-  /* Skills */
-  .skills-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .skill-chip {
-    font-size: 13px;
-    font-weight: 500;
-    padding: 6px 14px;
-    border-radius: var(--radius-pill);
-    background: rgba(27, 58, 104, 0.5);
-    border: 1px solid rgba(242, 225, 153, 0.16);
-    color: var(--text-primary);
-  }
-
-  .skills-note {
-    font-size: 13px;
-    color: var(--text-subtle);
-    margin-top: 4px;
-  }
-
-  .about-action-strip {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-top: 36px;
+    margin-top: var(--space-3);
   }
 </style>

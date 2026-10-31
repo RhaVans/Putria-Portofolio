@@ -1,126 +1,27 @@
 ---
-import site from '../content/site.json';
-import strings from '../content/strings.en.json';
-
-const currentYear = new Date().getFullYear();
+// Minimal one-line footer (§4)
 ---
-<footer class="site-footer section-shell">
-  <div class="footer-divider" aria-hidden="true"></div>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <a href="/" class="footer-monogram">
-        <span class="monogram-box" aria-hidden="true">{site.initials}</span>
-        <span class="monogram-name">{site.name}</span>
-      </a>
-      <p class="footer-tagline">{site.tagline}</p>
-    </div>
-
-    <div class="footer-meta">
-      <p class="footer-copy">&copy; {currentYear} {site.name}. {strings.footer.copyright}</p>
-      <p class="footer-credit">{strings.footer.builtWith}</p>
-    </div>
+<footer class="site-footer">
+  <div class="content-shell">
+    <p class="footer-copy text-caption">© 2026 Putria Octavianty.</p>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    position: relative;
-    z-index: 10;
-    padding-top: 20px;
-    padding-bottom: 24px;
-  }
-
-  .footer-divider {
-    height: 1px;
-    width: 100%;
-    background: linear-gradient(90deg, transparent, rgba(242, 225, 153, 0.18), transparent);
-    margin-bottom: 32px;
-  }
-
-  .footer-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    align-items: center;
+    padding-top: var(--space-7);
+    padding-bottom: calc(var(--space-8) + env(safe-area-inset-bottom, 0px));
     text-align: center;
   }
 
   @media (min-width: 768px) {
-    .footer-inner {
-      flex-direction: row;
-      justify-content: space-between;
-      text-align: left;
-      align-items: flex-start;
-    }
-  }
-
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-  }
-
-  @media (min-width: 768px) {
-    .footer-brand {
-      align-items: flex-start;
-    }
-  }
-
-  .footer-monogram {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--starlight-200);
-    text-decoration: none;
-  }
-
-  .monogram-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-chip);
-    background: rgba(27, 58, 104, 0.7);
-    border: 1px solid var(--border-glass);
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--moon-400);
-  }
-
-  .monogram-name {
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 700;
-  }
-
-  .footer-tagline {
-    font-size: 13.5px;
-    color: var(--text-subtle);
-  }
-
-  .footer-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  @media (min-width: 768px) {
-    .footer-meta {
-      text-align: right;
+    .site-footer {
+      padding-top: var(--space-8);
+      padding-bottom: var(--space-8);
     }
   }
 
   .footer-copy {
-    font-size: 13px;
-    color: var(--text-muted);
-  }
-
-  .footer-credit {
-    font-size: 12px;
-    color: var(--text-subtle);
-    max-width: 360px;
+    color: var(--text-3);
   }
 </style>

@@ -1,90 +1,28 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Footer from '../../components/Footer.astro';
-import WorkCard from '../../components/WorkCard.astro';
+import WorkRows from '../../components/WorkRows.astro';
 import site from '../../content/site.json';
-import strings from '../../content/strings.en.json';
-import experience from '../../content/experience.json';
 ---
 <Base
-  title={`Work & Initiatives — ${site.name}`}
+  title={`Work — ${site.name}`}
   description={`Documented leadership, editorial, and organizational projects led by ${site.name}.`}
 >
-  <div class="work-page section-shell">
-    <header class="work-header">
-      <span class="section-eyebrow">{strings.work.eyebrow}</span>
-      <h1 class="work-title font-display">{strings.work.heading}</h1>
-      <p class="work-subheading">{strings.work.subheading}</p>
-    </header>
-
-    <div class="work-grid">
-      {experience.map((exp) => (
-        <div class="work-grid-item">
-          <WorkCard experience={exp} />
-        </div>
-      ))}
-    </div>
+  <div class="work-index-page">
+    <WorkRows showAllLink={false} />
   </div>
 
   <Footer />
 </Base>
 
 <style>
-  .work-page {
-    padding-top: calc(var(--mobile-header-height, 64px) + 20px);
-    padding-bottom: 60px;
+  .work-index-page {
+    padding-top: var(--space-4);
   }
 
   @media (min-width: 768px) {
-    .work-page {
-      padding-top: 48px;
-      padding-bottom: 80px;
+    .work-index-page {
+      padding-top: var(--space-6);
     }
-  }
-
-  .work-header {
-    margin-bottom: 36px;
-    max-width: 680px;
-  }
-
-  .section-eyebrow {
-    display: block;
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--sky-400);
-    margin-bottom: 6px;
-  }
-
-  .work-title {
-    font-size: clamp(2.4rem, 5vw, 3.8rem);
-    color: var(--starlight-200);
-    line-height: 1.1;
-    margin-bottom: 12px;
-  }
-
-  .work-subheading {
-    font-size: 17px;
-    color: var(--text-muted);
-    line-height: 1.6;
-  }
-
-  .work-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  @media (min-width: 768px) {
-    .work-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-  }
-
-  .work-grid-item {
-    display: flex;
-    height: 100%;
   }
 </style>

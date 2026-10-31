@@ -1,29 +1,12 @@
 ---
-// Ambient background with drifting Sky/Moon radial gradients and 5 sparkle stars (§5.2, §6)
+// Calm night sky depth stack (§5.2, §8): two radial gradient fields
 ---
-<div class="ambient-layer" transition:persist="bg-ambient" aria-hidden="true">
-  <!-- Sky orb (top-right drift) -->
-  <div class="orb orb-sky"></div>
+<div class="ambient-layer" transition:name="bg-ambient" aria-hidden="true">
+  <!-- Sky glow (cool depth) -->
+  <div class="glow-orb orb-sky"></div>
   
-  <!-- Moon orb (bottom-left drift) -->
-  <div class="orb orb-moon"></div>
-
-  <!-- Sparkle stars (SVG 4-point stars, opacity twinkle only, <= 6) -->
-  <svg class="star star-1" viewBox="0 0 24 24" fill="none">
-    <path d="M12 0 C12 7 17 12 24 12 C17 12 12 17 12 24 C12 17 7 12 0 12 C7 12 12 7 12 0 Z" fill="#F2E199" />
-  </svg>
-  <svg class="star star-2" viewBox="0 0 24 24" fill="none">
-    <path d="M12 0 C12 7 17 12 24 12 C17 12 12 17 12 24 C12 17 7 12 0 12 C7 12 12 7 12 0 Z" fill="#F2E199" />
-  </svg>
-  <svg class="star star-3" viewBox="0 0 24 24" fill="none">
-    <path d="M12 0 C12 7 17 12 24 12 C17 12 12 17 12 24 C12 17 7 12 0 12 C7 12 12 7 12 0 Z" fill="#6FB8E6" />
-  </svg>
-  <svg class="star star-4" viewBox="0 0 24 24" fill="none">
-    <path d="M12 0 C12 7 17 12 24 12 C17 12 12 17 12 24 C12 17 7 12 0 12 C7 12 12 7 12 0 Z" fill="#F2E199" />
-  </svg>
-  <svg class="star star-5" viewBox="0 0 24 24" fill="none">
-    <path d="M12 0 C12 7 17 12 24 12 C17 12 12 17 12 24 C12 17 7 12 0 12 C7 12 12 7 12 0 Z" fill="#ECB44D" />
-  </svg>
+  <!-- Moon glow (warm depth) -->
+  <div class="glow-orb orb-moon"></div>
 </div>
 
 <style>
@@ -36,7 +19,7 @@
     background-color: var(--night-900);
   }
 
-  .orb {
+  .glow-orb {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
@@ -44,123 +27,40 @@
   }
 
   .orb-sky {
-    top: -10vw;
+    top: -15vw;
     right: -10vw;
-    width: 65vw;
-    height: 65vw;
-    max-width: 850px;
-    max-height: 850px;
-    background: radial-gradient(circle, rgba(111, 184, 230, 0.16) 0%, rgba(111, 184, 230, 0.04) 45%, transparent 70%);
-    animation: drift-sky 50s var(--ease-in-out) infinite alternate;
+    width: 60vw;
+    height: 60vw;
+    max-width: 800px;
+    max-height: 800px;
+    background: radial-gradient(circle, rgba(111, 184, 230, 0.12) 0%, rgba(111, 184, 230, 0.02) 50%, transparent 70%);
+    animation: drift-sky 60s var(--ease-standard) infinite alternate;
   }
 
   .orb-moon {
-    bottom: -15vw;
+    bottom: -20vw;
     left: -15vw;
-    width: 75vw;
-    height: 75vw;
-    max-width: 950px;
-    max-height: 950px;
-    background: radial-gradient(circle, rgba(236, 180, 77, 0.13) 0%, rgba(236, 180, 77, 0.03) 45%, transparent 70%);
-    animation: drift-moon 60s var(--ease-in-out) infinite alternate;
+    width: 70vw;
+    height: 70vw;
+    max-width: 900px;
+    max-height: 900px;
+    background: radial-gradient(circle, rgba(236, 180, 77, 0.09) 0%, rgba(236, 180, 77, 0.02) 50%, transparent 70%);
+    animation: drift-moon 75s var(--ease-standard) infinite alternate;
   }
 
   @keyframes drift-sky {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    50% { transform: translate3d(-6vw, 8vh, 0) scale(1.05); }
-    100% { transform: translate3d(-3vw, 15vh, 0) scale(0.96); }
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-4vw, 8vh, 0); }
   }
 
   @keyframes drift-moon {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    50% { transform: translate3d(8vw, -10vh, 0) scale(1.06); }
-    100% { transform: translate3d(4vw, -5vh, 0) scale(0.95); }
-  }
-
-  /* 4-point stars */
-  .star {
-    position: absolute;
-    pointer-events: none;
-    opacity: 0.35;
-    animation: twinkle 4s ease-in-out infinite;
-  }
-
-  .star-1 {
-    top: 15%;
-    left: 20%;
-    width: 14px;
-    height: 14px;
-    animation-delay: 0.5s;
-    animation-duration: 4.5s;
-  }
-
-  .star-2 {
-    top: 25%;
-    right: 28%;
-    width: 18px;
-    height: 18px;
-    animation-delay: 1.8s;
-    animation-duration: 5s;
-  }
-
-  .star-3 {
-    top: 60%;
-    right: 12%;
-    width: 12px;
-    height: 12px;
-    animation-delay: 2.7s;
-    animation-duration: 3.8s;
-  }
-
-  .star-4 {
-    top: 75%;
-    left: 15%;
-    width: 15px;
-    height: 15px;
-    animation-delay: 1.2s;
-    animation-duration: 4.2s;
-  }
-
-  .star-5 {
-    top: 40%;
-    left: 45%;
-    width: 10px;
-    height: 10px;
-    animation-delay: 3.1s;
-    animation-duration: 4.8s;
-  }
-
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.2; transform: scale(0.85); }
-    50% { opacity: 0.75; transform: scale(1.15); }
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(5vw, -6vh, 0); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .orb, .star {
+    .glow-orb {
       animation: none !important;
     }
   }
 </style>
-
-<script>
-  // Pause drift on hidden tabs or low-power devices (§6)
-  function setupAmbientPerf() {
-    const ambient = document.querySelector('.ambient-layer');
-    if (!ambient) return;
-
-    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) {
-      ambient.classList.add('static-orbs');
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        ambient.classList.add('paused');
-      } else {
-        ambient.classList.remove('paused');
-      }
-    });
-  }
-
-  setupAmbientPerf();
-  document.addEventListener('astro:page-load', setupAmbientPerf);
-</script>

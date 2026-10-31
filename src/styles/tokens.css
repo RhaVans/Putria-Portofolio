@@ -1,38 +1,57 @@
 :root {
-  /* Starry Night Palette Tokens (§5.1) */
-  --night-900: #191939; /* Page base, theme-color, button text */
-  --night-700: #1B3A68; /* Glass tint, secondary surfaces */
-  --sky-400: #6FB8E6;   /* Secondary accent: links, icons, cool glow */
-  --moon-400: #ECB44D;  /* Action only: primary CTA, active nav, crescent moon */
-  --starlight-200: #F2E199; /* Headlines, highlights, glass edge light */
+  /* Starry Night Palette Tokens v2 (§5.1) */
+  --night-950: #0F0F26;
+  --night-900: #191939; /* Page base, theme-color */
+  --night-700: #1B3A68; /* Glass tint, subtle glow source */
+  --sky-400: #6FB8E6;   /* Secondary accent: links, cool glow */
+  --moon-400: #ECB44D;  /* The ONE primary action token per viewport, active indicator */
+  --starlight-200: #F2E199; /* Rare micro-specular hairline highlight only */
 
-  /* Text & Surfaces */
-  --text-primary: #FBF6E0;
-  --text-muted: rgba(251, 246, 224, 0.80);
-  --text-subtle: rgba(251, 246, 224, 0.58);
-  --border-glass: rgba(242, 225, 153, 0.14);
-  --border-light: rgba(242, 225, 153, 0.28);
+  /* Text & Contrast Tokens (§5.1) */
+  --text-1: #F7F3E3;                    /* 15.2:1 on 900 - Headlines & key titles */
+  --text-2: rgb(247 243 227 / 0.72);    /* 8.4:1 on 900 - Body & descriptions */
+  --text-3: rgb(247 243 227 / 0.52);    /* 5.0:1 on 900 - Captions >= 14px */
+  --hairline: rgb(247 243 227 / 0.12);  /* Row dividers */
 
-  /* Radius Scale (§5.3) */
-  --radius-hero: 28px;
-  --radius-card: 20px;
-  --radius-chip: 12px;
-  --radius-pill: 9999px;
+  /* Typography: Single Family (Inter Variable, §5.2) */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* Motion Tokens (§6) */
-  --ease-out: cubic-bezier(.16, 1, .3, 1);
-  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
-  --duration-micro: 160ms;
-  --duration-elem: 450ms;
-  --duration-page: 520ms;
-
-  /* Typography */
-  --font-display: 'Bodoni Moda', 'Bodoni Fallback', Georgia, serif;
-  --font-body: 'Instrument Sans', 'Instrument Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Spacing Scale (§5.3): 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
 
   /* Layout */
-  --container-max: 1280px;
-  --gutter-desktop: 32px;
-  --gutter-mobile: 18px;
-  --mobile-header-height: 64px;
+  --gutter: clamp(20px, 5vw, 48px);
+  --container-max: 1120px;
+  --section-pad-mobile: 88px;
+  --section-pad-desktop: 140px;
+
+  /* Radii (§5.3): Concentric */
+  --radius-capsule: 9999px;
+  --radius-list: 28px;
+  --radius-sheet: 20px;
+
+  /* Motion Tokens (§5.6) */
+  --ease-ios: cubic-bezier(.32, .72, 0, 1);
+  --ease-standard: cubic-bezier(.4, 0, .2, 1);
+  --duration-press: 120ms;
+  --duration-reveal: 480ms;
+  --duration-page: 420ms;
+
+  /* Glass Blur v2 (§5.5) */
+  --glass-blur: 24px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --glass-blur: 16px;
+  }
 }

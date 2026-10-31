@@ -1,20 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import StatBar from '../components/StatBar.astro';
-import FeaturedWork from '../components/FeaturedWork.astro';
-import Capabilities from '../components/Capabilities.astro';
-import Process from '../components/Process.astro';
-import CtaPanel from '../components/CtaPanel.astro';
+import WorkRows from '../components/WorkRows.astro';
+import HowIWork from '../components/HowIWork.astro';
+import SayHello from '../components/SayHello.astro';
 import Footer from '../components/Footer.astro';
 import site from '../content/site.json';
 ---
-<Base title={`${site.name} — ${site.tagline}`}>
+<Base
+  title={`${site.name} — ${site.tagline}`}
+  description={`Portfolio of ${site.name}, ${site.tagline} Based in ${site.location}.`}
+>
+  <!-- Chapter 1: Hero (§6.1) -->
   <Hero />
-  <StatBar />
-  <FeaturedWork />
-  <Capabilities />
-  <Process />
-  <CtaPanel />
+
+  <!-- Chapter 2: Work (§6.1) -->
+  <WorkRows showAllLink={true} />
+
+  <!-- Chapter 3: How I work (§6.1, §8) -->
+  <HowIWork />
+
+  <!-- Chapter 4: Say hello (§6.1) -->
+  <SayHello />
+
+  <!-- Footer (§4) -->
   <Footer />
 </Base>

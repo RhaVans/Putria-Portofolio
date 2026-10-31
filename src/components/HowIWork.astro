@@ -1,0 +1,116 @@
+---
+import strings from '../content/strings.en.json';
+---
+<section class="how-chapter" id="how-i-work" aria-labelledby="how-heading">
+  <div class="content-shell">
+    <div class="how-content">
+      <p id="how-heading" class="how-leadin text-body">
+        {strings.howIWork.leadIn}
+      </p>
+
+      <div class="how-statements">
+        {strings.howIWork.lines.map((line) => (
+          <p class="statement-line statement-item">{line}</p>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-chapter {
+    padding-block: var(--section-pad-mobile);
+  }
+
+  @media (min-width: 1024px) {
+    .how-chapter {
+      padding-block: var(--section-pad-desktop);
+    }
+  }
+
+  .how-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 900px;
+  }
+
+  @media (min-width: 1024px) {
+    .how-content {
+      gap: var(--space-8);
+    }
+  }
+
+  .how-leadin {
+    color: var(--text-2);
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+  }
+
+  .how-statements {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 1024px) {
+    .how-statements {
+      gap: var(--space-7);
+    }
+  }
+
+  .statement-item {
+    color: var(--text-1);
+    opacity: 0.42;
+    transition: opacity 450ms var(--ease-standard);
+  }
+
+  .statement-item.is-active {
+    opacity: 1;
+  }
+
+  @supports (animation-timeline: view()) {
+    .statement-item {
+      animation: statement-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 50%;
+    }
+
+    @keyframes statement-rise {
+      from { opacity: 0.42; }
+      to { opacity: 1; }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .statement-item {
+      opacity: 1 !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  function setupScrollStatements() {
+    if (CSS.supports && CSS.supports('animation-timeline', 'view()')) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const items = document.querySelectorAll('.statement-item');
+    if (!items.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-active');
+        }
+      });
+    }, {
+      threshold: 0.4,
+      rootMargin: '0px 0px -15% 0px'
+    });
+
+    items.forEach((item) => observer.observe(item));
+  }
+
+  setupScrollStatements();
+  document.addEventListener('astro:page-load', setupScrollStatements);
+</script>
