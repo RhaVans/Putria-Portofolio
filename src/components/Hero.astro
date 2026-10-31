@@ -1,0 +1,399 @@
+---
+import site from '../content/site.json';
+import strings from '../content/strings.en.json';
+---
+<section class="hero-section" id="hero">
+  <div class="hero-inner section-shell">
+    <!-- Giant Name Behind Portrait (§4, §5.5) -->
+    <div class="hero-name-container" aria-hidden="true">
+      <div class="hero-name-line hero-line-1">
+        <span class="name-text font-display">Putria</span>
+      </div>
+      <div class="hero-name-line hero-line-2">
+        <span class="name-text font-display">Octavianty</span>
+      </div>
+    </div>
+
+    <!-- Portrait Anchor Layer (§5.4) -->
+    <div class="hero-portrait-stage">
+      <!-- Glow & Halo Separation behind head & shoulders -->
+      <div class="portrait-glow" aria-hidden="true"></div>
+      
+      <!-- Crescent Moon Arc behind her -->
+      <svg class="crescent-arc" viewBox="0 0 240 240" fill="none" aria-hidden="true">
+        <path
+          class="arc-path"
+          d="M 120 20 A 100 100 0 0 1 220 120 A 100 100 0 0 1 120 220 A 88 88 0 0 0 120 20 Z"
+          fill="none"
+          stroke="url(#heroMoonGrad)"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        />
+        <defs>
+          <linearGradient id="heroMoonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F2E199" stop-opacity="0.85" />
+            <stop offset="100%" stop-color="#ECB44D" stop-opacity="0.5" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- Subject Cut-out Picture Element -->
+      <picture class="portrait-picture">
+        <source
+          srcset="/images/portrait-1200.avif 1200w, /images/portrait-800.avif 800w, /images/portrait-480.avif 480w"
+          sizes="(max-width: 767px) 90vw, (max-width: 1200px) 500px, 620px"
+          type="image/avif"
+        />
+        <source
+          srcset="/images/portrait-1200.webp 1200w, /images/portrait-800.webp 800w, /images/portrait-480.webp 480w"
+          sizes="(max-width: 767px) 90vw, (max-width: 1200px) 500px, 620px"
+          type="image/webp"
+        />
+        <img
+          src="/images/portrait-480.png"
+          alt={strings.hero.altPortrait}
+          width="480"
+          height="461"
+          fetchpriority="high"
+          class="portrait-img"
+        />
+      </picture>
+    </div>
+
+    <!-- Foreground Content Card (Left / Bottom-Left) -->
+    <div class="hero-content">
+      <div class="hero-identity-box glass glass-card">
+        <h1 class="sr-only">{site.name} — {site.tagline}</h1>
+        <p class="hero-role-text">{strings.hero.role}</p>
+        <p class="hero-location-text">Based in {site.location}</p>
+        <div class="hero-cta-group">
+          <a href="#featured" class="btn-primary">
+            <span>{strings.hero.viewWork}</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+          </a>
+          <a href="/cv.pdf" download="Putria_Octavianty_CV.pdf" class="btn-secondary">
+            <span>{strings.hero.downloadCv}</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    position: relative;
+    width: 100%;
+    min-height: calc(100svh - 90px);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    padding-bottom: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .hero-section {
+      min-height: calc(100svh - 100px);
+      padding-bottom: 40px;
+    }
+  }
+
+  .hero-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  /* Giant Name Behind Portrait (§4, §5.5) */
+  .hero-name-container {
+    position: absolute;
+    top: 8%;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-name-container {
+      top: 10%;
+      left: 2%;
+      width: 75%;
+    }
+  }
+
+  .hero-name-line {
+    overflow: hidden;
+    line-height: 0.92;
+  }
+
+  .name-text {
+    display: block;
+    font-size: clamp(3rem, 13vw, 5.5rem);
+    font-weight: 700;
+    color: var(--starlight-200);
+    opacity: 0.82;
+    letter-spacing: -0.025em;
+    transform: translateY(0);
+    transition: transform 0.8s var(--ease-out);
+    word-break: normal;
+  }
+
+  @media (min-width: 768px) {
+    .name-text {
+      font-size: clamp(5rem, 11vw, 8.5rem);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .name-text {
+      font-size: clamp(7.5rem, 10.5vw, 10.5rem);
+    }
+  }
+
+  /* Portrait Stage (§5.4) */
+  .hero-portrait-stage {
+    position: relative;
+    z-index: 2; /* In front of name text */
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .hero-portrait-stage {
+      max-width: 500px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-portrait-stage {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      max-width: 580px;
+      margin: 0;
+    }
+  }
+
+  /* Silhouette separation glow (§5.4) */
+  .portrait-glow {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 290px;
+    height: 290px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(236, 180, 77, 0.38) 0%, rgba(111, 184, 230, 0.28) 45%, transparent 72%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  @media (min-width: 1024px) {
+    .portrait-glow {
+      top: 4%;
+      width: 440px;
+      height: 440px;
+    }
+  }
+
+  /* Crescent moon arc */
+  .crescent-arc {
+    position: absolute;
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 260px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  @media (min-width: 1024px) {
+    .crescent-arc {
+      top: 0;
+      width: 400px;
+      height: 400px;
+    }
+  }
+
+  .arc-path {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 0;
+  }
+
+  .portrait-picture {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .portrait-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    /* Bottom fade into next section (§5.4) */
+    mask-image: linear-gradient(to top, transparent 0%, black 12%);
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 12%);
+  }
+
+  @media (min-width: 1024px) {
+    .portrait-img {
+      /* Single 1px Starlight drop-shadow rim on desktop (§5.4) */
+      filter: drop-shadow(0 0 1px rgba(242, 225, 153, 0.45));
+    }
+  }
+
+  /* Foreground Content Card */
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 480px;
+    margin-top: 20px;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-content {
+      margin-bottom: 24px;
+      max-width: 520px;
+    }
+  }
+
+  .hero-identity-box {
+    padding: clamp(20px, 4vw, 32px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: inset 0 1px 0 rgba(242, 225, 153, 0.2), 0 20px 48px -16px rgba(8, 8, 28, 0.7);
+  }
+
+  .hero-role-text {
+    font-size: clamp(17px, 2.4vw, 21px);
+    font-weight: 500;
+    color: var(--starlight-200);
+    line-height: 1.4;
+  }
+
+  .hero-location-text {
+    font-size: 14px;
+    color: var(--sky-400);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  /* Orchestrated Intro Animation (§6) */
+  .anim-intro .portrait-glow {
+    animation: intro-glow 1s var(--ease-out) forwards;
+  }
+  .anim-intro .arc-path {
+    stroke-dashoffset: 400;
+    animation: draw-arc 1.2s var(--ease-out) 0.2s forwards;
+  }
+  .anim-intro .hero-line-1 .name-text {
+    transform: translateY(100%);
+    animation: rise-name 0.8s var(--ease-out) 0.35s forwards;
+  }
+  .anim-intro .hero-line-2 .name-text {
+    transform: translateY(100%);
+    animation: rise-name 0.8s var(--ease-out) 0.5s forwards;
+  }
+  .anim-intro .portrait-picture {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: rise-portrait 0.9s var(--ease-out) 0.4s forwards;
+  }
+  .anim-intro .hero-identity-box {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: rise-content 0.8s var(--ease-out) 0.65s forwards;
+  }
+
+  @keyframes intro-glow {
+    from { opacity: 0; transform: translateX(-50%) scale(0.8); }
+    to { opacity: 1; transform: translateX(-50%) scale(1); }
+  }
+
+  @keyframes draw-arc {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes rise-name {
+    to { transform: translateY(0); }
+  }
+
+  @keyframes rise-portrait {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes rise-content {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .anim-intro .portrait-glow,
+    .anim-intro .arc-path,
+    .anim-intro .name-text,
+    .anim-intro .portrait-picture,
+    .anim-intro .hero-identity-box {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      stroke-dashoffset: 0 !important;
+    }
+  }
+</style>
+
+<script>
+  // Hero intro orchestration (once per session, <= 1.4s) (§6)
+  function initHeroIntro() {
+    const hero = document.getElementById('hero');
+    if (!hero) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let hasPlayed = false;
+
+    try {
+      hasPlayed = sessionStorage.getItem('putria_hero_intro_played') === 'true';
+    } catch (e) {
+      // sessionStorage restricted / unavailable
+    }
+
+    if (!hasPlayed && !prefersReduced) {
+      hero.classList.add('anim-intro');
+      try {
+        sessionStorage.setItem('putria_hero_intro_played', 'true');
+      } catch (e) {}
+    }
+  }
+
+  initHeroIntro();
+  document.addEventListener('astro:page-load', initHeroIntro);
+</script>

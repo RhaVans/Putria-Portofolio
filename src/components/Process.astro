@@ -1,0 +1,139 @@
+---
+import capabilitiesData from '../content/capabilities.json';
+import strings from '../content/strings.en.json';
+
+const steps = capabilitiesData.process;
+---
+<section class="process-section section-shell" id="process" aria-labelledby="process-heading">
+  <div class="process-header">
+    <span class="section-eyebrow">{strings.process.eyebrow}</span>
+    <h2 id="process-heading" class="section-heading font-display">{strings.process.heading}</h2>
+    <p class="section-subheading">{strings.process.subheading}</p>
+  </div>
+
+  <div class="process-flow">
+    {steps.map((item, idx) => (
+      <div class="process-step-item">
+        <div class="glass glass-card step-card">
+          <div class="step-marker-row">
+            <span class="step-num font-display">{item.step}</span>
+            {idx < steps.length - 1 && <span class="step-connector-line" aria-hidden="true"></span>}
+          </div>
+          <h3 class="step-title font-display">{item.title}</h3>
+          <p class="step-desc">{item.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .process-section {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 70px;
+  }
+
+  @media (min-width: 768px) {
+    .process-section {
+      margin-bottom: 100px;
+    }
+  }
+
+  .process-header {
+    margin-bottom: 36px;
+    max-width: 640px;
+  }
+
+  .section-eyebrow {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--sky-400);
+    margin-bottom: 6px;
+  }
+
+  .section-heading {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--starlight-200);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .section-subheading {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .process-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+  }
+
+  .process-step-item {
+    position: relative;
+    display: flex;
+  }
+
+  .step-card {
+    padding: clamp(20px, 3vw, 26px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    background: linear-gradient(145deg, rgba(27, 58, 104, 0.44), rgba(25, 25, 57, 0.32));
+  }
+
+  .step-marker-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .step-num {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--moon-400);
+    line-height: 1;
+  }
+
+  .step-connector-line {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .step-connector-line {
+      display: block;
+      height: 1px;
+      flex: 1;
+      margin-left: 16px;
+      background: linear-gradient(90deg, rgba(236, 180, 77, 0.4), transparent);
+    }
+  }
+
+  .step-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--starlight-200);
+    line-height: 1.25;
+  }
+
+  .step-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+</style>

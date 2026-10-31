@@ -1,0 +1,168 @@
+---
+import capabilitiesData from '../content/capabilities.json';
+import strings from '../content/strings.en.json';
+
+const items = capabilitiesData.capabilities;
+---
+<section class="capabilities-section section-shell" id="capabilities" aria-labelledby="capabilities-heading">
+  <div class="capabilities-header">
+    <span class="section-eyebrow">{strings.capabilities.eyebrow}</span>
+    <h2 id="capabilities-heading" class="section-heading font-display">{strings.capabilities.heading}</h2>
+    <p class="section-subheading">{strings.capabilities.subheading}</p>
+  </div>
+
+  <div class="capabilities-grid">
+    {items.map((item, idx) => (
+      <div class="glass glass-card capability-card">
+        <div class="card-icon-box" aria-hidden="true">
+          {idx === 0 && (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          )}
+          {idx === 1 && (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          )}
+          {idx === 2 && (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          )}
+          {idx === 3 && (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+          )}
+          {idx === 4 && (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          )}
+          {idx === 5 && (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+          )}
+        </div>
+        <h3 class="capability-title font-display">{item.title}</h3>
+        <p class="capability-desc">{item.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .capabilities-section {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 70px;
+  }
+
+  @media (min-width: 768px) {
+    .capabilities-section {
+      margin-bottom: 100px;
+    }
+  }
+
+  .capabilities-header {
+    margin-bottom: 36px;
+    max-width: 640px;
+  }
+
+  .section-eyebrow {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--sky-400);
+    margin-bottom: 6px;
+  }
+
+  .section-heading {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--starlight-200);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .section-subheading {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .capabilities-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  @media (min-width: 600px) {
+    .capabilities-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .capabilities-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+  }
+
+  .capability-card {
+    padding: clamp(20px, 3vw, 28px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: linear-gradient(145deg, rgba(27, 58, 104, 0.42), rgba(25, 25, 57, 0.32));
+    transition: transform var(--duration-micro) var(--ease-out),
+                border-color var(--duration-micro) var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .capability-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(242, 225, 153, 0.28);
+    }
+  }
+
+  .card-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-chip);
+    background: rgba(27, 58, 104, 0.6);
+    border: 1px solid var(--border-glass);
+    color: var(--moon-400);
+  }
+
+  .capability-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--starlight-200);
+    line-height: 1.25;
+  }
+
+  .capability-desc {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+</style>

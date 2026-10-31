@@ -1,63 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import StatBar from '../components/StatBar.astro';
+import FeaturedWork from '../components/FeaturedWork.astro';
+import Capabilities from '../components/Capabilities.astro';
+import Process from '../components/Process.astro';
+import CtaPanel from '../components/CtaPanel.astro';
+import Footer from '../components/Footer.astro';
 import site from '../content/site.json';
-import strings from '../content/strings.en.json';
 ---
 <Base title={`${site.name} — ${site.tagline}`}>
-  <section class="section-shell stub-section">
-    <div class="glass glass-hero stub-card">
-      <span class="stub-badge">ROUTE 01 / HOME</span>
-      <h1 class="font-display stub-title">{site.name}</h1>
-      <p class="stub-desc">{site.tagline}</p>
-      <div class="stub-actions">
-        <a href="/work" class="btn-primary">View work</a>
-        <a href="/about" class="btn-secondary">About Putria</a>
-      </div>
-    </div>
-  </section>
+  <Hero />
+  <StatBar />
+  <FeaturedWork />
+  <Capabilities />
+  <Process />
+  <CtaPanel />
+  <Footer />
 </Base>
-
-<style>
-  .stub-section {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    display: flex;
-    justify-content: center;
-  }
-  .stub-card {
-    width: 100%;
-    max-width: 720px;
-    padding: clamp(32px, 6vw, 64px);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  .stub-badge {
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: var(--moon-400);
-    background: rgba(236, 180, 77, 0.15);
-    padding: 4px 12px;
-    border-radius: var(--radius-pill);
-    border: 1px solid rgba(236, 180, 77, 0.3);
-  }
-  .stub-title {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    color: var(--starlight-200);
-    line-height: 1.1;
-  }
-  .stub-desc {
-    color: var(--text-muted);
-    font-size: 18px;
-    max-width: 480px;
-  }
-  .stub-actions {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 12px;
-  }
-</style>
